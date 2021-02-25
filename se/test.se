@@ -1,0 +1,27 @@
+#RES 0 6999 100.00
+#RES 0 8910 36292.85
+#RES 0 8999 128674.65
+
+#KONTO 1382 "Långfristiga fordringar hos anställda"
+
+#VER A 1 20141008 "Kundfaktura till 122 Vaimo Sweden AB, 2171"
+{
+#TRANS 3051 {} -11100.00
+#TRANS 2611 {} -2775.00
+#TRANS 1518 {} 13875.00
+}
+
+#VER A 2 20141008 "Kundfaktura till 122 Vaimo Sweden AB, 2172"
+{
+#TRANS 3051 {} -5600.00
+#TRANS 2611 {} -1400.00
+#TRANS 1518 {} 7000.00
+}
+
+#VER A 3 20141008 "Kundfaktura till 120 Footway Aktiebolag, 2173"
+{
+#TRANS 3051 {} -13050.00
+#TRANS 2611 {} -3262.50
+#TRANS 1518 {} 16313.00
+#TRANS 3740 {} -0.50
+}

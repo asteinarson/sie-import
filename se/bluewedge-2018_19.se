@@ -1,0 +1,98 @@
+
+#FLAGGA 0
+
+#PROGRAM "Visma eEkonomi" 7.5.0.32866
+#FORMAT PC8
+#GEN 20200228 "Arne Steinarson"
+#SIETYP 4
+#ORGNR 556983-6751
+#FNAMN "Blue Wedge AB"
+#RAR 0 20180901 20190831
+#KPTYP EUBAS97
+#VALUTA SEK
+
+#VER A 1 20180902 "Avgift, skatteverket"
+{
+#TRANS 1630 {} -6250.00
+#TRANS 6992 {} 6250.00
+}
+
+#VER A 2 20180906 "Betalning av avgift, skatteverket"
+{
+#TRANS 1630 {} 6250.00
+#TRANS 1930 {} -6250.00
+}
+
+#VER A 3 20180909 "SEB Banktjänst"
+{
+#TRANS 1930 {} -1200.00
+#TRANS 6570 {} 1200.00
+}
+
+#VER A 4 20181003 "Faktura, Visma Eekonomi"
+{
+#TRANS 2440 {} -2448.00
+#TRANS 2641 {} 489.60
+#TRANS 6530 {} 1958.40
+}
+
+#VER A 5 20181018 "Betalning Visma Eekonomi"
+{
+#TRANS 1930 {} -2448.00
+#TRANS 2440 {} 2448.00
+}
+
+#VER A 6 20181231 "Momsredovisning oktober-december 2018"
+{
+#TRANS 2641 {} -489.60
+#TRANS 2650 {} 490.00
+#TRANS 3740 {} -0.4
+}
+
+#VER A 7 20150212 Skattedeklaration
+{
+#TRANS 2650 {} -490.00
+#TRANS 1630 {} 490.00
+}
+
+#VER A 8 20190227 "Kvitto, årsredovisning online"
+{
+#TRANS 1930 {} -1200.00
+#TRANS 2641 {} 240.00
+#TRANS 6530 {} 960.00
+}
+
+#VER A 9 20180401 "Momsredovisning oktober-december 2018"
+{
+#TRANS 2641 {} -240.60
+#TRANS 2650 {} 240.00
+}
+
+#VER A 10 20150420 Skattedeklaration
+{
+#TRANS 2650 {} -240.00
+#TRANS 1630 {} 240.00
+}
+
+#VER A 11 20190526 "Faktura, Iniz, OpenVZ Server"
+{
+#TRANS 2440 {} -632.55
+#TRANS 2614 {} -126.51
+#TRANS 2645 {} 126.51
+#TRANS 6221 {} 632.55
+}
+
+#VER A 12 20190526 "Betalning Iniz"
+{
+#TRANS 1930 {} -632.55
+#TRANS 2440 {} 632.55
+}
+
+#VER A 13 20190822 "Kvitto, Medium prenumeration"
+{
+#TRANS 1930 {} -497.00
+#TRANS 2614 {} -99.40
+#TRANS 2645 {} 99.40
+#TRANS 6970 {} 497
+}
+

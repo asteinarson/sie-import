@@ -1,0 +1,411 @@
+#FLAGGA 0
+
+#PROGRAM "Visma eEkonomi" 7.5.0.32866
+#FORMAT PC8
+#GEN 20200228 "Arne Steinarson"
+#SIETYP 4
+#ORGNR 556983-6751
+#FNAMN "Blue Wedge AB"
+#RAR 0 20140901 20150831
+#KPTYP EUBAS97
+#VALUTA SEK
+
+#UB 0 1930 214935.00
+#UB 0 2081 -50000.00
+#UB 0 2099 -128674.65
+#UB 0 2510 -36292.85
+#UB 0 2650 32.50
+
+#RES 0 3051 -186250.00
+#RES 0 3740 -1.55
+#RES 0 5400 13400.00
+#RES 0 5420 1601.00
+#RES 0 5810 1485.20
+#RES 0 6000 231.44
+#RES 0 6500 1520.00
+#RES 0 6540 1546.41
+#RES 0 6970 400.00
+#RES 0 6992 1000.00
+#RES 0 6999 100.00
+#RES 0 8910 36292.85
+#RES 0 8999 128674.65
+
+#VER A 1 20141008 "Kundfaktura till 122 Vaimo Sweden AB, 2171"
+{
+#TRANS 3051 {} -11100.00
+#TRANS 2611 {} -2775.00
+#TRANS 1518 {} 13875.00
+}
+
+#VER A 2 20141008 "Kundfaktura till 122 Vaimo Sweden AB, 2172"
+{
+#TRANS 3051 {} -5600.00
+#TRANS 2611 {} -1400.00
+#TRANS 1518 {} 7000.00
+}
+
+#VER A 3 20141008 "Kundfaktura till 120 Footway Aktiebolag, 2173"
+{
+#TRANS 3051 {} -13050.00
+#TRANS 2611 {} -3262.50
+#TRANS 1518 {} 16313.00
+#TRANS 3740 {} -0.50
+}
+
+#VER A 4 20141008 "StartaEget - böcker"
+{
+#TRANS 2893 {} -500.00
+#TRANS 6970 {} 400.00
+#TRANS 6999 {} 100.00
+}
+
+#VER A 5 20141008 "Registrering av bolag (verksamt.se)"
+{
+#TRANS 2893 {} -1900.00
+#TRANS 6500 {} 1520.00
+#TRANS 2641 {} 380.00
+}
+
+#VER A 6 20141008 "Resa i Stockholm - SL Kort"
+{
+#TRANS 5810 {} 742.60
+#TRANS 2641 {} 47.40
+#TRANS 2893 {} -790.00
+}
+
+#VER A 7 20141008 "Transformator till dator"
+{
+#TRANS 2893 {} -750.00
+#TRANS 5400 {} 600.00
+#TRANS 2641 {} 150.00
+}
+
+#VER A 8 20141008 "Dator (Mac)"
+{
+#TRANS 2893 {} -16000.00
+#TRANS 5400 {} 12800.00
+#TRANS 2641 {} 3200.00
+}
+
+#VER A 9 20141008 "Fikabröd, Kundbesök"
+{
+#TRANS 2893 {} -93.00
+#TRANS 6000 {} 81.84
+#TRANS 2641 {} 11.16
+}
+
+#VER A 10 20141010 "Lunch, Kundbesök"
+{
+#TRANS 2893 {} -170.00
+#TRANS 6000 {} 149.60
+#TRANS 2641 {} 20.40
+}
+
+#VER A 11 20141001 "Insättning av aktiekapital"
+{
+#TRANS 1930 {} 50000.00
+#TRANS 2081 {} -50000.00
+}
+
+#VER A 12 20141001 "Leverantörsfaktura från 1 GleSys, 18629485"
+{
+#TRANS 2448 {} -594.00
+#TRANS 2641 {} 118.75
+#TRANS 6540 {} 475.25
+}
+
+#VER A 13 20141009 "Betalning till 1 GleSys, 18629485"
+{
+#TRANS 2448 {} 594.00
+#TRANS 1930 {} -594.00
+}
+
+#VER A 14 20141009 "Bankutbetalning, utlägg"
+{
+#TRANS 2893 {} 20033.00
+#TRANS 1930 {} -20033.00
+}
+
+#VER A 15 20141111 "Leverantörsfaktura från 1 GleSys, 18907782"
+{
+#TRANS 2448 {} -214.00
+#TRANS 2641 {} 42.74
+#TRANS 6540 {} 171.26
+}
+
+#VER A 16 20141111 "Betalning till 1 GleSys, 18907782"
+{
+#TRANS 2448 {} 214.00
+#TRANS 1930 {} -214.00
+}
+
+#VER A 17 20141016 "Leverantörsfaktura från 2 Visma SPCS, 9316312"
+{
+#TRANS 2448 {} -2001.00
+#TRANS 2641 {} 400.00
+#TRANS 5420 {} 1601.00
+}
+
+#VER A 18 20141107 "Inbetalning från 122 Vaimo Sweden AB, 2171"
+{
+#TRANS 1518 {} -13875.00
+#TRANS 1930 {} 13875.00
+}
+
+#VER A 19 20141117 "Kundfaktura till 120 Footway Aktiebolag, 2174"
+{
+#TRANS 3051 {} -10650.00
+#TRANS 2611 {} -2662.50
+#TRANS 1518 {} 13313.00
+#TRANS 3740 {} -0.50
+}
+
+#VER A 20 20141117 "Kundfaktura till 122 Vaimo Sweden AB, 2175"
+{
+#TRANS 3051 {} -21600.00
+#TRANS 2611 {} -5400.00
+#TRANS 1518 {} 27000.00
+}
+
+#VER A 21 20141117 "Kundfaktura till 122 Vaimo Sweden AB, 2176"
+{
+#TRANS 3051 {} -20000.00
+#TRANS 2611 {} -5000.00
+#TRANS 1518 {} 25000.00
+}
+
+#VER A 22 20141117 "Resa i Stockholm - SL kort"
+{
+#TRANS 5810 {} 742.60
+#TRANS 2641 {} 47.40
+#TRANS 2893 {} -790.00
+}
+
+#VER A 23 20141211 "Inbetalning från 122 Vaimo Sweden AB, 2176"
+{
+#TRANS 1518 {} -25000.00
+#TRANS 1930 {} 25000.00
+}
+
+#VER A 24 20141211 "Inbetalning från 122 Vaimo Sweden AB, 2175"
+{
+#TRANS 1518 {} -27000.00
+#TRANS 1930 {} 27000.00
+}
+
+#VER A 25 20141211 "Inbetalning från 122 Vaimo Sweden AB, 2172"
+{
+#TRANS 1518 {} -7000.00
+#TRANS 1930 {} 7000.00
+}
+
+#VER A 26 20141216 "Inbetalning från 120 Footway Aktiebolag, 2174"
+{
+#TRANS 1518 {} -13313.00
+#TRANS 1930 {} 13313.00
+}
+
+#VER A 27 20141119 "Inbetalning från 120 Footway Aktiebolag, 2173"
+{
+#TRANS 1518 {} -16313.00
+#TRANS 1930 {} 16313.00
+}
+
+#VER A 28 20141216 "Kundfaktura till 122 Vaimo Sweden AB, 2177"
+{
+#TRANS 3051 {} -55200.00
+#TRANS 2611 {} -13800.00
+#TRANS 1518 {} 69000.00
+}
+
+#VER A 29 20141216 "Kundfaktura till 122 Vaimo Sweden AB, 2178"
+{
+#TRANS 3051 {} -20000.00
+#TRANS 2611 {} -5000.00
+#TRANS 1518 {} 25000.00
+}
+
+#VER A 30 20141216 "Kundfaktura till 120 Footway Aktiebolag, 2179"
+{
+#TRANS 3051 {} -6650.00
+#TRANS 2611 {} -1662.50
+#TRANS 1518 {} 8313.00
+#TRANS 3740 {} -0.50
+}
+
+#VER A 31 20141114 "Betalning till 2 Visma SPCS, 9316312"
+{
+#TRANS 2448 {} 2001.00
+#TRANS 1930 {} -2001.00
+}
+
+#VER A 32 20141128 "Leverantörsfaktura från 1 GleSys, 19153386"
+{
+#TRANS 2448 {} -291.00
+#TRANS 2641 {} 58.20
+#TRANS 6540 {} 232.80
+}
+
+#VER A 33 20141227 "Betalning till 1 GleSys, 19153386"
+{
+#TRANS 2448 {} 291.00
+#TRANS 1930 {} -291.00
+}
+
+#VER A 34 20150108 "Inbetalning från 122 Vaimo Sweden AB, 2177"
+{
+#TRANS 1518 {} -69000.00
+#TRANS 1930 {} 69000.00
+}
+
+#VER A 35 20150119 "Inbetalning från 122 Vaimo Sweden AB, 2178"
+{
+#TRANS 1518 {} -25000.00
+#TRANS 1930 {} 25000.00
+}
+
+#VER A 36 20150119 "Kundfaktura till 122 Vaimo Sweden AB, 2180"
+{
+#TRANS 3051 {} -22400.00
+#TRANS 2611 {} -5600.00
+#TRANS 1518 {} 28000.00
+}
+
+#VER A 37 20150127 "Leverantörsfaktura från 1 GleSys, 19727189"
+{
+#TRANS 2448 {} -336.00
+#TRANS 2641 {} 67.20
+#TRANS 6540 {} 268.80
+}
+
+#VER A 38 20141230 "Leverantörsfaktura från 1 GleSys, 19472489"
+{
+#TRANS 2448 {} -336.00
+#TRANS 2641 {} 67.20
+#TRANS 6540 {} 268.80
+}
+
+#VER A 39 20150205 "Betalning till 1 GleSys, 19472489"
+{
+#TRANS 2448 {} 336.00
+#TRANS 1930 {} -336.00
+}
+
+#VER A 40 20150205 "Betalning till 1 GleSys, 19727189"
+{
+#TRANS 2448 {} 336.00
+#TRANS 1930 {} -336.00
+}
+
+#VER A 41 20141231 "Momsredovisning oktober-december 2014"
+{
+#TRANS 2641 {} -4543.25
+#TRANS 2611 {} 40962.50
+#TRANS 2650 {} -36419.00
+#TRANS 3740 {} -0.25
+}
+
+#VER A 42 20150212 Skattedeklaration
+{
+#TRANS 2650 {} 36419.00
+#TRANS 1630 {} -36419.00
+}
+
+#VER A 43 20150206 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -36419.00
+#TRANS 1630 {} 36419.00
+}
+
+#VER A 44 20150213 "Inbetalning från 120 Footway Aktiebolag, 2179"
+{
+#TRANS 1518 {} -8313.00
+#TRANS 1930 {} 8313.00
+}
+
+#VER A 45 20150212 "Inbetalning från 122 Vaimo Sweden AB, 2180"
+{
+#TRANS 1518 {} -28000.00
+#TRANS 1930 {} 28000.00
+}
+
+#VER A 46 20150331 "Momsredovisning januari-mars 2015"
+{
+#TRANS 2611 {} 5600.00
+#TRANS 2641 {} -67.20
+#TRANS 2650 {} -5533.00
+#TRANS 3740 {} 0.20
+}
+
+#VER A 47 20150830 "Leverantörsfaktura från 1 GleSys, 21778485"
+{
+#TRANS 2448 {} -162.00
+#TRANS 2641 {} 32.50
+#TRANS 6540 {} 129.50
+}
+
+#VER A 48 20150831 "Betalning till 1 GleSys, 21778485"
+{
+#TRANS 2448 {} 162.00
+#TRANS 1930 {} -162.00
+}
+
+#VER A 49 20150512 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -5533.00
+#TRANS 1630 {} 5533.00
+}
+
+#VER A 50 20150303 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -500.00
+#TRANS 1630 {} 500.00
+}
+
+#VER A 51 20150409 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -500.00
+#TRANS 1630 {} 500.00
+}
+
+#VER A 52 20150512 Skattedeklaration
+{
+#TRANS 2650 {} 5533.00
+#TRANS 1630 {} -5533.00
+}
+
+#VER A 53 20150302 "Avgift, Skatteverket"
+{
+#TRANS 1630 {} -500.00
+#TRANS 6992 {} 500.00
+}
+
+#VER A 54 20150408 "Avgift, skatteverket"
+{
+#TRANS 1630 {} -500.00
+#TRANS 6992 {} 500.00
+}
+
+#VER A 55 20150831 "Bankutbetalning, utlägg"
+{
+#TRANS 2893 {} 960.00
+#TRANS 1930 {} -960.00
+}
+
+#VER A 56 20150831 "Momsredovisning Jul Aug"
+{
+#TRANS 2641 {} -32.50
+#TRANS 2650 {} 32.50
+}
+
+#VER A 57 20150830 "Bokföring av årets skatt"
+{
+#TRANS 8910 {} 36292.85 20150830 "Bokföring av årets skatt"
+#TRANS 2510 {} -36292.85 20150830 "Bokföring av årets skatt"
+}
+
+#VER A 58 20150831 "Bokföring av årets resultat"
+{
+#TRANS 8999 {} 128674.65 20150831 "Bokföring av årets resultat"
+#TRANS 2099 {} -128674.65 20150831 "Bokföring av årets resultat"
+}

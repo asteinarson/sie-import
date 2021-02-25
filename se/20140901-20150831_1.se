@@ -1,0 +1,696 @@
+#FLAGGA 0
+
+#PROGRAM "Visma eEkonomi" 7.5.0.32866
+#FORMAT PC8
+#GEN 20200228 "Arne Steinarson"
+#SIETYP 4
+#ORGNR 556983-6751
+#FNAMN "Blue Wedge AB"
+#RAR 0 20140901 20150831
+#KPTYP EUBAS97
+#VALUTA SEK
+
+#KONTO 1210 "Maskiner och andra tekniska anlÑggningar"
+#KONTO 1220 "Inventarier och verktyg"
+#KONTO 1229 "Ackumulerade avskrivningar pÜ inventarier och verktyg"
+#KONTO 1337 "Ackumulerade nedskrivningar av andelar i îvriga fîretag som"
+#KONTO 1357 "Andelar i handelsbolag, andra fîretag"
+#KONTO 1382 "LÜngfristiga fordringar hos anstÑllda"
+#KONTO 1388 "LÜngfristiga kundfordringar"
+#KONTO 1410 "Lager av rÜvaror"
+#KONTO 1419 "FîrÑndring av lager av rÜvaror"
+#KONTO 1420 "Lager av tillsatsmaterial och fîrnîdenheter"
+#KONTO 1429 "FîrÑndring av lager av tillsatsmaterial och fîrnîdenheter"
+#KONTO 1430 "Lager av halvfabrikat"
+#KONTO 1431 "Lager av kîpta halvfabrikat"
+#KONTO 1432 "Lager av egentillverkade halvfabrikat"
+#KONTO 1438 "FîrÑndring av lager av kîpta halvfabrikat"
+#KONTO 1439 "FîrÑndring av lager av egentillverkade halvfabrikat"
+#KONTO 1440 "Produkter i arbete"
+#KONTO 1449 "FîrÑndring av produkter i arbete"
+#KONTO 1450 "Lager av fÑrdiga varor"
+#KONTO 1459 "FîrÑndring av lager av fÑrdiga varor"
+#KONTO 1460 "Lager av handelsvaror"
+#KONTO 1465 "Lager av varor VMB"
+#KONTO 1466 "Nedskrivning av varor VMB"
+#KONTO 1467 "Lager av varor VMB fîrenklad"
+#KONTO 1469 "FîrÑndring av lager av handelsvaror"
+#KONTO 1470 "PÜgÜende arbeten"
+#KONTO 1471 "PÜgÜende arbeten, nedlagda kostnader"
+#KONTO 1478 "PÜgÜende arbeten, fakturering"
+#KONTO 1479 "FîrÑndring av pÜgÜende arbeten"
+#KONTO 1480 "Fîrskott fîr varor och tjÑnster"
+#KONTO 1481 Remburser
+#KONTO 1489 "ôvriga fîrskott till leverantîrer"
+#KONTO 1490 "ôvriga lagertillgÜngar"
+#KONTO 1491 "Lager av vÑrdepapper"
+#KONTO 1492 "Lager av fastigheter"
+#KONTO 1493 "Djur som klassificeras som omsÑttningstillgÜng"
+#KONTO 1510 Kundfordringar
+#KONTO 1518 "Ej reskontrafîrda kundfordringar"
+#KONTO 1519 "Nedskrivning av kundfordringar"
+#KONTO 1549 "Nedskrivning av ej reskontrafîrda kundfordringar"
+#KONTO 1630 "AvrÑkning fîr skatter och avgifter (skattekonto)"
+#KONTO 1640 Skattefordringar
+#KONTO 1650 Momsfordran
+#KONTO 1700 "Fîrutbetalda kostnader/interimsfordringar"
+#KONTO 1790 "ôvriga fîrutbetalda kostnader och upplupna intÑkter"
+#KONTO 1910 Kassa
+#KONTO 1920 PlusGiro
+#KONTO 1930 Fîretagskonto/checkkonto/affÑrskonto
+#KONTO 1940 "ôvriga bankkonton"
+#KONTO 1980 Valutakonton
+#KONTO 2018 "ôvriga egna insÑttningar"
+#KONTO 2081 Aktiekapital
+#KONTO 2086 Reservfond
+#KONTO 2091 "Balanserad vinst eller fîrlust"
+#KONTO 2093 "ErhÜllna aktieÑgartillskott"
+#KONTO 2098 "Vinst eller fîrlust frÜn fîregÜende Ür"
+#KONTO 2099 "èrets resultat"
+#KONTO 2110 Periodiseringsfonder
+#KONTO 2111 "Periodiseringsfond vid 2011 Ürs taxering"
+#KONTO 2112 "Periodiseringsfond vid 2012 Ürs taxering"
+#KONTO 2113 "Periodiseringsfond vid 2013 Ürs taxering"
+#KONTO 2124 "Periodiseringsfond 2014"
+#KONTO 2125 "Periodiseringsfond 2015"
+#KONTO 2126 "Periodiseringsfond 2016"
+#KONTO 2127 "Periodiseringsfond 2017"
+#KONTO 2128 "Periodiseringsfond 2018"
+#KONTO 2129 "Periodiseringsfond 2019"
+#KONTO 2130 "Periodiseringsfond 2020 - nr 2"
+#KONTO 2131 "Periodiseringsfond 2021 - nr 2"
+#KONTO 2132 "Periodiseringsfond 2022 - nr 2"
+#KONTO 2133 "Periodiseringsfond 2023 - nr 2"
+#KONTO 2134 "Periodiseringsfond 2024 - nr 2"
+#KONTO 2135 "Periodiseringsfond 2015 - nr 2"
+#KONTO 2136 "Periodiseringsfond 2016 - nr 2"
+#KONTO 2137 "Periodiseringsfond 2017 - nr 2"
+#KONTO 2138 "Periodiseringsfond 2018 - nr 2"
+#KONTO 2139 "Periodiseringsfond 2019 - nr 2"
+#KONTO 2150 "Ackumulerade îveravskrivningar"
+#KONTO 2390 "ôvriga lÜngfristiga skulder"
+#KONTO 2399 "ôvriga lÜngfristiga skulder"
+#KONTO 2420 "Fîrskott frÜn kunder"
+#KONTO 2440 Leverantîrsskulder
+#KONTO 2448 "Ej reskontrafîrda leverantîrsskulder"
+#KONTO 2499 "Andra îvriga kortfristiga skulder"
+#KONTO 2510 Skatteskulder
+#KONTO 2518 "Betald F-skatt"
+#KONTO 2611 "UtgÜende moms pÜ fîrsÑljning inom Sverige, 25%"
+#KONTO 2612 "UtgÜende moms pÜ egna uttag, 25%"
+#KONTO 2614 "UtgÜende moms omvÑnd skattskyldighet 25 %"
+#KONTO 2615 "UtgÜende moms import av varor 25%"
+#KONTO 2621 "UtgÜende moms pÜ fîrsÑljning inom Sverige, 12%"
+#KONTO 2624 "UtgÜende moms omvÑnd skattskyldighet 12 %"
+#KONTO 2631 "UtgÜende moms pÜ fîrsÑljning inom Sverige, 6%"
+#KONTO 2634 "UtgÜende moms omvÑnd skattskyldighet 6 %"
+#KONTO 2641 "Debiterad ingÜende moms"
+#KONTO 2645 "BerÑknad ingÜende moms pÜ fîrvÑrv frÜn utlandet"
+#KONTO 2647 "IngÜende moms omvÑnd skattskyldighet varor och tjÑnster i S"
+#KONTO 2650 "Redovisningskonto fîr moms"
+#KONTO 2710 Personalskatt
+#KONTO 2730 "Lagstadgade sociala avgifter och sÑrskild lîneskatt"
+#KONTO 2731 "AvrÑkning lagstadgade sociala avgifter"
+#KONTO 2732 "AvrÑkning sÑrskild lîneskatt"
+#KONTO 2790 "ôvriga lîneavdrag"
+#KONTO 2794 Fackfîreningsavgifter
+#KONTO 2890 "ôvriga kortfristiga skulder"
+#KONTO 2893 "Skulder till nÑrstÜende personer, kortfristig del"
+#KONTO 2896 "Skuld till personal - dricks"
+#KONTO 2910 "Upplupna lîner"
+#KONTO 2920 "Upplupna semesterlîner"
+#KONTO 2940 "Upplupna lagstadgade sociala och andra avgifter"
+#KONTO 2941 "BerÑknade upplupna lagstadgade sociala avgifter"
+#KONTO 2950 "Upplupna avtalade sociala avgifter"
+#KONTO 2959 "Upplupna avtalade pensionsfîrsÑkringsavgifter, deklarations"
+#KONTO 2990 "ôvriga upplupna kostnader och fîrutbetalda intÑkter"
+#KONTO 2999 OBS-konto
+#KONTO 3041 "FîrsÑljn tjÑnst 25% sv"
+#KONTO 3042 "FîrsÑljn tjÑnst 12% sv"
+#KONTO 3043 "FîrsÑljn tjÑnst 6% sv"
+#KONTO 3044 "FîrsÑljn tjÑnst sv momsfri"
+#KONTO 3045 "FîrsÑljn tjÑnst utanfîr EG momsfri"
+#KONTO 3046 "FîrsÑljn tjÑnst till EG 25%"
+#KONTO 3048 "FîrsÑljn tjÑnst EG momsfri"
+#KONTO 3051 "FîrsÑljn varor 25% sv"
+#KONTO 3052 "FîrsÑljn varor 12% sv"
+#KONTO 3053 "FîrsÑljn varor 6% sv"
+#KONTO 3054 "FîrsÑljn varor sv momsfri"
+#KONTO 3055 "FîrsÑljn varor utanfîr EG momsfri"
+#KONTO 3056 "FîrsÑljn varor till EG 25% momspliktig"
+#KONTO 3057 "Treparts fîrsÑljn varor till EG 25%"
+#KONTO 3058 "FîrsÑljn varor EG momsfri"
+#KONTO 3231 "FîrsÑljn bygg, omv skattskyld"
+#KONTO 3510 "Fakturerat emballage"
+#KONTO 3520 "Fakturerade frakter"
+#KONTO 3521 "Fakturerade frakter, EU-land"
+#KONTO 3522 "Fakturerade frakter, export"
+#KONTO 3530 "Fakturerade tull- och speditionskostnader m.m."
+#KONTO 3540 Faktureringsavgifter
+#KONTO 3541 "Faktureringsavgifter export utanfîr EG momsfri"
+#KONTO 3542 "Faktureringsavgifter export inom EG momsfri"
+#KONTO 3543 "Faktureringavgift 12%"
+#KONTO 3544 "Faktureringavgift 6%"
+#KONTO 3590 "ôvriga fakturerade kostnader"
+#KONTO 3596 PÜminnelseavgift
+#KONTO 3690 "ôvriga sidointÑkter"
+#KONTO 3740 "ôres- och kronutjÑmning"
+#KONTO 3950 "ètervunna, tidigare avskrivna kundfordringar"
+#KONTO 3960 "Valutakursvinster pÜ fordringar och skulder av rîrelsekarak"
+#KONTO 3970 "Vinst vid avyttring av immateriella och materiella anlÑggni"
+#KONTO 3971 "Vinst vid avyttring av immateriella anlÑggningstillgÜngar"
+#KONTO 3980 "ErhÜllna offentliga stîd m.m."
+#KONTO 4000 "Inkîp av varor frÜn Sverige"
+#KONTO 4020 "Inkîp VMB varor"
+#KONTO 4028 "Negativ VM omfîringskonto"
+#KONTO 4030 "Negativ VM"
+#KONTO 4055 "Trepartsfîrv varor fr EG"
+#KONTO 4056 "Inkîp varor 25% EG"
+#KONTO 4057 "Inkîp varor 12% EG"
+#KONTO 4058 "Inkîp varor EG 6%"
+#KONTO 4059 "Inkîp varor EG momsfri"
+#KONTO 4100 "Kostn uthyrn lokal sk.pl"
+#KONTO 4400 "Momspliktiga inkîp i Sverige"
+#KONTO 4415 "Inkîpta varor i Sverige, omvÑnd skattskyldighet, 25 % moms"
+#KONTO 4416 "Inkîpta varor i Sverige, omvÑnd skattskyldighet, 12 % moms"
+#KONTO 4417 "Inkîpta varor i Sverige, omvÑnd skattskyldighet, 6 % moms"
+#KONTO 4500 "ôvriga momspliktiga inkîp"
+#KONTO 4531 "Inkîp av tjÑnster frÜn ett land utanfîr EU, 25 % moms"
+#KONTO 4532 "Inkîp av tjÑnster frÜn ett land utanfîr EU, 12 % moms"
+#KONTO 4533 "Inkîp av tjÑnster frÜn ett land utanfîr EU, 6 % moms"
+#KONTO 4545 "Import av varor, 25 % moms"
+#KONTO 4546 "Import av varor, 12 % moms"
+#KONTO 4547 "Import av varor, 6 % moms"
+#KONTO 4549 "Motkonto beskattningsunderlag import"
+#KONTO 4700 "Reduktion av inkîpspriser (gruppkonto)"
+#KONTO 4900 "FîrÑndring av lager (gruppkonto)"
+#KONTO 4910 "FîrÑndring av lager av rÜvaror"
+#KONTO 4920 "FîrÑndring av lager av tillsatsmaterial och fîrnîdenheter"
+#KONTO 4930 "FîrÑndring av lager av halvfabrikat"
+#KONTO 4931 "FîrÑndring av lager av kîpta halvfabrikat"
+#KONTO 4932 "FîrÑndring av lager av egentillverkade halvfabrikat"
+#KONTO 4940 "FîrÑndring av produkter i arbete"
+#KONTO 4944 "FîrÑndring av produkter i arbete, material och utlÑgg"
+#KONTO 4945 "FîrÑndring av produkter i arbete, omkostnader"
+#KONTO 4947 "FîrÑndring av produkter i arbete, personalkostnader"
+#KONTO 4950 "FîrÑndring av lager av fÑrdiga varor"
+#KONTO 4960 "FîrÑndring av lager av handelsvaror"
+#KONTO 4970 "FîrÑndring av pÜgÜende arbeten, nedlagda kostnader"
+#KONTO 4974 "FîrÑndring av pÜgÜende arbeten, material och utlÑgg"
+#KONTO 4975 "FîrÑndring av pÜgÜende arbeten, omkostnader"
+#KONTO 4977 "FîrÑndring av pÜgÜende arbeten, personalkostnader"
+#KONTO 4980 "FîrÑndring av lager av vÑrdepapper"
+#KONTO 4981 "SÜlda vÑrdepappers anskaffningsvÑrde"
+#KONTO 4987 "Nedskrivning av vÑrdepapper"
+#KONTO 4988 "èterfîring av nedskrivning av vÑrdepapper"
+#KONTO 4990 "FîrÑndring av lager och pÜgÜende arbeten (ofîrdelad)"
+#KONTO 5000 "Lokalkostnader (gruppkonto)"
+#KONTO 5200 "Hyra av anlÑggningstillgÜngar (gruppkonto)"
+#KONTO 5400 "Fîrbrukningsinventarier och fîrbrukningsmaterial (gruppkont"
+#KONTO 5420 Programvaror
+#KONTO 5600 "Kostnader fîr transportmedel (gruppkonto)"
+#KONTO 5610 Personbilskostnader
+#KONTO 5611 "Drivmedel fîr personbilar"
+#KONTO 5612 "FîrsÑkring och skatt fîr personbilar"
+#KONTO 5613 "Reparation och underhÜll av personbilar"
+#KONTO 5615 "Leasing av personbilar"
+#KONTO 5616 "TrÑngselskatt, avdragsgill"
+#KONTO 5619 "ôvriga personbilskostnader"
+#KONTO 5620 Lastbilskostnader
+#KONTO 5630 Truckkostnader
+#KONTO 5640 "Kostnader fîr arbetsmaskiner"
+#KONTO 5650 Traktorkostnader
+#KONTO 5660 "Motorcykel-, moped- och skoterkostnader"
+#KONTO 5670 "BÜt-, flygplans- och helikopterkostnader"
+#KONTO 5690 "ôvriga kostnader fîr transportmedel"
+#KONTO 5700 "Frakter och transporter (gruppkonto)"
+#KONTO 5800 "Resekostnader (gruppkonto)"
+#KONTO 5810 Biljetter
+#KONTO 5900 "Reklam och PR (gruppkonto)"
+#KONTO 6000 "ôvriga fîrsÑljningskostnader (gruppkonto)"
+#KONTO 6044 "Avgift kortbetalning Webshop"
+#KONTO 6071 "Representation, avdragsgill"
+#KONTO 6072 "Representation, ej avdragsgill"
+#KONTO 6100 "Kontorsmateriel och trycksaker (gruppkonto)"
+#KONTO 6200 "Tele och post (gruppkonto)"
+#KONTO 6300 "FîretagsfîrsÑkringar och îvriga riskkostnader (gruppkonto)"
+#KONTO 6350 "Fîrluster pÜ kundfordringar"
+#KONTO 6351 "Konstaterade fîrluster pÜ kundfordringar"
+#KONTO 6352 "Befarade fîrluster pÜ kundfordringar"
+#KONTO 6420 "ErsÑttningar till revisor"
+#KONTO 6500 "ôvriga externa tjÑnster (gruppkonto)"
+#KONTO 6540 IT-tjÑnster
+#KONTO 6570 Bankkostnader
+#KONTO 6800 "Inhyrd personal (gruppkonto)"
+#KONTO 6810 "Inhyrd produktionspersonal"
+#KONTO 6820 "Inhyrd lagerpersonal"
+#KONTO 6830 "Inhyrd transportpersonal"
+#KONTO 6840 "Inhyrd kontors- och ekonomipersonal"
+#KONTO 6850 "Inhyrd IT-personal"
+#KONTO 6860 "Inhyrd marknads- och fîrsÑljningspersonal"
+#KONTO 6870 "Inhyrd restaurang- och butikspersonal"
+#KONTO 6880 "Inhyrda fîretagsledare"
+#KONTO 6890 "ôvrig inhyrd personal"
+#KONTO 6900 "ôvriga externa kostnader (gruppkonto)"
+#KONTO 6970 "Tidningar, tidskrifter och facklitteratur"
+#KONTO 6991 "ôvriga externa kostnader, avdragsgilla"
+#KONTO 6992 "ôvriga externa kostnader, ej avdragsgilla"
+#KONTO 6999 "IngÜende moms, blandad verksamhet"
+#KONTO 7000 "Lîner till kollektivanstÑllda (gruppkonto)"
+#KONTO 7210 "Lîner till tjÑnstemÑn"
+#KONTO 7220 "Lîner till fîretagsledare"
+#KONTO 7300 "KostnadsersÑttningar och fîrmÜner (gruppkonto)"
+#KONTO 7321 "Skattefria traktamenten, Sverige"
+#KONTO 7322 "Skattepliktiga traktamenten, Sverige"
+#KONTO 7323 "Skattefria traktamenten, utlandet"
+#KONTO 7324 "Skattepliktiga traktamenten, utlandet"
+#KONTO 7331 "Skattefria bilersÑttningar"
+#KONTO 7332 "Skattepliktiga bilersÑttningar"
+#KONTO 7350 "ErsÑttningar fîr fîreskrivna arbetsklÑder"
+#KONTO 7380 "Kostnader fîr fîrmÜner till anstÑllda"
+#KONTO 7390 "ôvriga kostnadsersÑttningar och fîrmÜner"
+#KONTO 7399 "Motkontering fîrmÜner"
+#KONTO 7410 PensionsfîrsÑkringspremier
+#KONTO 7500 "Sociala och andra avgifter enligt lag och avtal (gruppkonto"
+#KONTO 7510 "Arbetsgivaravgifter 31,42 %"
+#KONTO 7513 "Arbetsgivaravgift avdrag forskning"
+#KONTO 7514 "Arbetsgivaravgift fîrsta anstÑlld"
+#KONTO 7521 "Avgifter fîr lîner och ersÑttningar"
+#KONTO 7533 "SÑrskild lîneskatt fîr pensionskostnader"
+#KONTO 7560 "Arbetsgivaravgifter 25,46 %"
+#KONTO 7600 "ôvriga personalkostnader (gruppkonto)"
+#KONTO 7831 "Avskrivningar pÜ maskiner och andra tekniska anlÑggningar"
+#KONTO 7832 "Avskrivningar pÜ inventarier och verktyg"
+#KONTO 7960 "Valutakursfîrluster pÜ fordringar och skulder av rîrelsekar"
+#KONTO 7973 "Fîrlust vid avyttring av maskiner och inventarier"
+#KONTO 8314 "Skattefria rÑnteintÑkter"
+#KONTO 8330 "Valutakursdifferenser pÜ kortfristiga fordringar och placer"
+#KONTO 8400 "RÑntekostnader (gruppkonto)"
+#KONTO 8422 "DrîjsmÜlsrÑntor fîr leverantîrsskulder"
+#KONTO 8423 "RÑntekostnader fîr skatter och avgifter"
+#KONTO 8430 "Valutakursdifferenser pÜ skulder"
+#KONTO 8811 "AvsÑttning till periodiseringsfond"
+#KONTO 8819 "èterfîring frÜn periodiseringsfond"
+#KONTO 8850 "FîrÑndring av îveravskrivningar"
+#KONTO 8910 "Skatt som belastar Ürets resultat"
+#KONTO 8999 "èrets resultat"
+
+#UB 0 1930 214935.00
+#UB 0 2081 -50000.00
+#UB 0 2099 -128674.65
+#UB 0 2510 -36292.85
+#UB 0 2650 32.50
+
+#RES 0 3051 -186250.00
+#RES 0 3740 -1.55
+#RES 0 5400 13400.00
+#RES 0 5420 1601.00
+#RES 0 5810 1485.20
+#RES 0 6000 231.44
+#RES 0 6500 1520.00
+#RES 0 6540 1546.41
+#RES 0 6970 400.00
+#RES 0 6992 1000.00
+#RES 0 6999 100.00
+#RES 0 8910 36292.85
+#RES 0 8999 128674.65
+
+#VER A 1 20141008 "Kundfaktura till 122 Vaimo Sweden AB, 2171"
+{
+#TRANS 3051 {} -11100.00
+#TRANS 2611 {} -2775.00
+#TRANS 1518 {} 13875.00
+}
+
+#VER A 2 20141008 "Kundfaktura till 122 Vaimo Sweden AB, 2172"
+{
+#TRANS 3051 {} -5600.00
+#TRANS 2611 {} -1400.00
+#TRANS 1518 {} 7000.00
+}
+
+#VER A 3 20141008 "Kundfaktura till 120 Footway Aktiebolag, 2173"
+{
+#TRANS 3051 {} -13050.00
+#TRANS 2611 {} -3262.50
+#TRANS 1518 {} 16313.00
+#TRANS 3740 {} -0.50
+}
+
+#VER A 4 20141008 "StartaEget - bîcker"
+{
+#TRANS 2893 {} -500.00
+#TRANS 6970 {} 400.00
+#TRANS 6999 {} 100.00
+}
+
+#VER A 5 20141008 "Registrering av bolag (verksamt.se)"
+{
+#TRANS 2893 {} -1900.00
+#TRANS 6500 {} 1520.00
+#TRANS 2641 {} 380.00
+}
+
+#VER A 6 20141008 "Resa i Stockholm - SL Kort"
+{
+#TRANS 5810 {} 742.60
+#TRANS 2641 {} 47.40
+#TRANS 2893 {} -790.00
+}
+
+#VER A 7 20141008 "Transformator till dator"
+{
+#TRANS 2893 {} -750.00
+#TRANS 5400 {} 600.00
+#TRANS 2641 {} 150.00
+}
+
+#VER A 8 20141008 "Dator (Mac)"
+{
+#TRANS 2893 {} -16000.00
+#TRANS 5400 {} 12800.00
+#TRANS 2641 {} 3200.00
+}
+
+#VER A 9 20141008 "Fikabrîd, Kundbesîk"
+{
+#TRANS 2893 {} -93.00
+#TRANS 6000 {} 81.84
+#TRANS 2641 {} 11.16
+}
+
+#VER A 10 20141010 "Lunch, Kundbesîk"
+{
+#TRANS 2893 {} -170.00
+#TRANS 6000 {} 149.60
+#TRANS 2641 {} 20.40
+}
+
+#VER A 11 20141001 "InsÑttning av aktiekapital"
+{
+#TRANS 1930 {} 50000.00
+#TRANS 2081 {} -50000.00
+}
+
+#VER A 12 20141001 "Leverantîrsfaktura frÜn 1 GleSys, 18629485"
+{
+#TRANS 2448 {} -594.00
+#TRANS 2641 {} 118.75
+#TRANS 6540 {} 475.25
+}
+
+#VER A 13 20141009 "Betalning till 1 GleSys, 18629485"
+{
+#TRANS 2448 {} 594.00
+#TRANS 1930 {} -594.00
+}
+
+#VER A 14 20141009 "Bankutbetalning, utlÑgg"
+{
+#TRANS 2893 {} 20033.00
+#TRANS 1930 {} -20033.00
+}
+
+#VER A 15 20141111 "Leverantîrsfaktura frÜn 1 GleSys, 18907782"
+{
+#TRANS 2448 {} -214.00
+#TRANS 2641 {} 42.74
+#TRANS 6540 {} 171.26
+}
+
+#VER A 16 20141111 "Betalning till 1 GleSys, 18907782"
+{
+#TRANS 2448 {} 214.00
+#TRANS 1930 {} -214.00
+}
+
+#VER A 17 20141016 "Leverantîrsfaktura frÜn 2 Visma SPCS, 9316312"
+{
+#TRANS 2448 {} -2001.00
+#TRANS 2641 {} 400.00
+#TRANS 5420 {} 1601.00
+}
+
+#VER A 18 20141107 "Inbetalning frÜn 122 Vaimo Sweden AB, 2171"
+{
+#TRANS 1518 {} -13875.00
+#TRANS 1930 {} 13875.00
+}
+
+#VER A 19 20141117 "Kundfaktura till 120 Footway Aktiebolag, 2174"
+{
+#TRANS 3051 {} -10650.00
+#TRANS 2611 {} -2662.50
+#TRANS 1518 {} 13313.00
+#TRANS 3740 {} -0.50
+}
+
+#VER A 20 20141117 "Kundfaktura till 122 Vaimo Sweden AB, 2175"
+{
+#TRANS 3051 {} -21600.00
+#TRANS 2611 {} -5400.00
+#TRANS 1518 {} 27000.00
+}
+
+#VER A 21 20141117 "Kundfaktura till 122 Vaimo Sweden AB, 2176"
+{
+#TRANS 3051 {} -20000.00
+#TRANS 2611 {} -5000.00
+#TRANS 1518 {} 25000.00
+}
+
+#VER A 22 20141117 "Resa i Stockholm - SL kort"
+{
+#TRANS 5810 {} 742.60
+#TRANS 2641 {} 47.40
+#TRANS 2893 {} -790.00
+}
+
+#VER A 23 20141211 "Inbetalning frÜn 122 Vaimo Sweden AB, 2176"
+{
+#TRANS 1518 {} -25000.00
+#TRANS 1930 {} 25000.00
+}
+
+#VER A 24 20141211 "Inbetalning frÜn 122 Vaimo Sweden AB, 2175"
+{
+#TRANS 1518 {} -27000.00
+#TRANS 1930 {} 27000.00
+}
+
+#VER A 25 20141211 "Inbetalning frÜn 122 Vaimo Sweden AB, 2172"
+{
+#TRANS 1518 {} -7000.00
+#TRANS 1930 {} 7000.00
+}
+
+#VER A 26 20141216 "Inbetalning frÜn 120 Footway Aktiebolag, 2174"
+{
+#TRANS 1518 {} -13313.00
+#TRANS 1930 {} 13313.00
+}
+
+#VER A 27 20141119 "Inbetalning frÜn 120 Footway Aktiebolag, 2173"
+{
+#TRANS 1518 {} -16313.00
+#TRANS 1930 {} 16313.00
+}
+
+#VER A 28 20141216 "Kundfaktura till 122 Vaimo Sweden AB, 2177"
+{
+#TRANS 3051 {} -55200.00
+#TRANS 2611 {} -13800.00
+#TRANS 1518 {} 69000.00
+}
+
+#VER A 29 20141216 "Kundfaktura till 122 Vaimo Sweden AB, 2178"
+{
+#TRANS 3051 {} -20000.00
+#TRANS 2611 {} -5000.00
+#TRANS 1518 {} 25000.00
+}
+
+#VER A 30 20141216 "Kundfaktura till 120 Footway Aktiebolag, 2179"
+{
+#TRANS 3051 {} -6650.00
+#TRANS 2611 {} -1662.50
+#TRANS 1518 {} 8313.00
+#TRANS 3740 {} -0.50
+}
+
+#VER A 31 20141114 "Betalning till 2 Visma SPCS, 9316312"
+{
+#TRANS 2448 {} 2001.00
+#TRANS 1930 {} -2001.00
+}
+
+#VER A 32 20141128 "Leverantîrsfaktura frÜn 1 GleSys, 19153386"
+{
+#TRANS 2448 {} -291.00
+#TRANS 2641 {} 58.20
+#TRANS 6540 {} 232.80
+}
+
+#VER A 33 20141227 "Betalning till 1 GleSys, 19153386"
+{
+#TRANS 2448 {} 291.00
+#TRANS 1930 {} -291.00
+}
+
+#VER A 34 20150108 "Inbetalning frÜn 122 Vaimo Sweden AB, 2177"
+{
+#TRANS 1518 {} -69000.00
+#TRANS 1930 {} 69000.00
+}
+
+#VER A 35 20150119 "Inbetalning frÜn 122 Vaimo Sweden AB, 2178"
+{
+#TRANS 1518 {} -25000.00
+#TRANS 1930 {} 25000.00
+}
+
+#VER A 36 20150119 "Kundfaktura till 122 Vaimo Sweden AB, 2180"
+{
+#TRANS 3051 {} -22400.00
+#TRANS 2611 {} -5600.00
+#TRANS 1518 {} 28000.00
+}
+
+#VER A 37 20150127 "Leverantîrsfaktura frÜn 1 GleSys, 19727189"
+{
+#TRANS 2448 {} -336.00
+#TRANS 2641 {} 67.20
+#TRANS 6540 {} 268.80
+}
+
+#VER A 38 20141230 "Leverantîrsfaktura frÜn 1 GleSys, 19472489"
+{
+#TRANS 2448 {} -336.00
+#TRANS 2641 {} 67.20
+#TRANS 6540 {} 268.80
+}
+
+#VER A 39 20150205 "Betalning till 1 GleSys, 19472489"
+{
+#TRANS 2448 {} 336.00
+#TRANS 1930 {} -336.00
+}
+
+#VER A 40 20150205 "Betalning till 1 GleSys, 19727189"
+{
+#TRANS 2448 {} 336.00
+#TRANS 1930 {} -336.00
+}
+
+#VER A 41 20141231 "Momsredovisning oktober-december 2014"
+{
+#TRANS 2641 {} -4543.25
+#TRANS 2611 {} 40962.50
+#TRANS 2650 {} -36419.00
+#TRANS 3740 {} -0.25
+}
+
+#VER A 42 20150212 Skattedeklaration
+{
+#TRANS 2650 {} 36419.00
+#TRANS 1630 {} -36419.00
+}
+
+#VER A 43 20150206 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -36419.00
+#TRANS 1630 {} 36419.00
+}
+
+#VER A 44 20150213 "Inbetalning frÜn 120 Footway Aktiebolag, 2179"
+{
+#TRANS 1518 {} -8313.00
+#TRANS 1930 {} 8313.00
+}
+
+#VER A 45 20150212 "Inbetalning frÜn 122 Vaimo Sweden AB, 2180"
+{
+#TRANS 1518 {} -28000.00
+#TRANS 1930 {} 28000.00
+}
+
+#VER A 46 20150331 "Momsredovisning januari-mars 2015"
+{
+#TRANS 2611 {} 5600.00
+#TRANS 2641 {} -67.20
+#TRANS 2650 {} -5533.00
+#TRANS 3740 {} 0.20
+}
+
+#VER A 47 20150830 "Leverantîrsfaktura frÜn 1 GleSys, 21778485"
+{
+#TRANS 2448 {} -162.00
+#TRANS 2641 {} 32.50
+#TRANS 6540 {} 129.50
+}
+
+#VER A 48 20150831 "Betalning till 1 GleSys, 21778485"
+{
+#TRANS 2448 {} 162.00
+#TRANS 1930 {} -162.00
+}
+
+#VER A 49 20150512 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -5533.00
+#TRANS 1630 {} 5533.00
+}
+
+#VER A 50 20150303 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -500.00
+#TRANS 1630 {} 500.00
+}
+
+#VER A 51 20150409 "Betalning till skattekontot"
+{
+#TRANS 1930 {} -500.00
+#TRANS 1630 {} 500.00
+}
+
+#VER A 52 20150512 Skattedeklaration
+{
+#TRANS 2650 {} 5533.00
+#TRANS 1630 {} -5533.00
+}
+
+#VER A 53 20150302 "Avgift, Skatteverket"
+{
+#TRANS 1630 {} -500.00
+#TRANS 6992 {} 500.00
+}
+
+#VER A 54 20150408 "Avgift, skatteverket"
+{
+#TRANS 1630 {} -500.00
+#TRANS 6992 {} 500.00
+}
+
+#VER A 55 20150831 "Bankutbetalning, utlÑgg"
+{
+#TRANS 2893 {} 960.00
+#TRANS 1930 {} -960.00
+}
+
+#VER A 56 20150831 "Momsredovisning Jul Aug"
+{
+#TRANS 2641 {} -32.50
+#TRANS 2650 {} 32.50
+}
+
+#VER A 57 20150830 "Bokfîring av Ürets skatt"
+{
+#TRANS 8910 {} 36292.85 20150830 "Bokfîring av Ürets skatt"
+#TRANS 2510 {} -36292.85 20150830 "Bokfîring av Ürets skatt"
+}
+
+#VER A 58 20150831 "Bokfîring av Ürets resultat"
+{
+#TRANS 8999 {} 128674.65 20150831 "Bokfîring av Ürets resultat"
+#TRANS 2099 {} -128674.65 20150831 "Bokfîring av Ürets resultat"
+}
