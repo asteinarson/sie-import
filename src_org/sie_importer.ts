@@ -498,7 +498,7 @@ async function runImports() {
         new VerRowParser(vp, options),
         new AccountParser(null, options),
         new ImportInfoParser(null, options),
-        new OrganizationInfoParser(null, options),
+        new OrganizationInfoParser(null, options),  
         new AccountingInfoParser(null, options),
     ];
     for (let p of p_arr) {
