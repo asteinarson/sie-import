@@ -10,8 +10,8 @@ connect( connection );
 
 (async () => {
     console.log("in async wrapper...")
-    let vers = await getAll("verification");
-    console.log("after getAll...")
+    //let vers = await getAll("verification", [["description","abc"],["id","3"]] );
+    let vers = await getAll("verification", ["description","abc"] );
     console.log(vers);
-    console.log("done")
+    process.exit(0);
 })()
