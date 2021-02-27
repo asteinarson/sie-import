@@ -1,3 +1,5 @@
+// This way of importing comes from https://github.com/knex/knex/issues/3897 
+// see comment by rijkvanzanten
 import Knex from 'knex'
 
 let _knex:Knex;
