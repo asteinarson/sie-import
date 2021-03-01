@@ -2,8 +2,8 @@
 // see comment by rijkvanzanten
 import Knex from 'knex'
 
-let _knex:Knex;
-export function connect(connection:Record<string,string>){
+let _knex: Knex;
+export function connect(connection: Record<string, string>) {
     let conn = {
         client: 'pg',
         connection
@@ -11,55 +11,86 @@ export function connect(connection:Record<string,string>){
     _knex = Knex(conn as Knex.Config);
 }
 
-type WhereArgVal = string|number|boolean;
-type WhereArgs = [string,WhereArgVal] | [string,string,WhereArgVal];
+type WhereArgVal = string | number | boolean;
+type WhereArgs = [string, WhereArgVal] | [string, string, WhereArgVal];
 
 function isStringArr(s: any): s is WhereArgs {
-    if(!Array.isArray(s)) return false;
-    if( s.length==0 ) return false;
-    if( typeof s[0]=="string" ) return true;
+    if (!Array.isArray(s)) return false;
+    if (s.length == 0) return false;
+    if (typeof s[0] == "string") return true;
     return false;
 }
 
-function addWhere(r:Knex.QueryBuilder,a:WhereArgs){
-    if( a.length==2 ){
-        return r.where(a[0],a[1])
+function addWhere(r: Knex.QueryBuilder, a: WhereArgs) {
+    if (a.length == 2) {
+        return r.where(a[0], a[1])
     }
-    else if( a.length==3 ){
-        return r.where(a[0],a[1],a[2])
+    else if (a.length == 3) {
+        return r.where(a[0], a[1], a[2])
     }
     else {
-        console.log( "addWhere - length of <wheres> is not 2 or 3: "+(a as any).length );
+        console.log("addWhere - length of <wheres> is not 2 or 3: " + (a as any).length);
         return r;
     }
 }
 
-export async function getAll(table:string, wheres:WhereArgs | WhereArgs[] = []){
+export async function getAll(table: string, wheres: WhereArgs | WhereArgs[] = []) {
     //return _knex(table).where( "description", "abc").where("id",2)
     let r = _knex(table);
 
-    if( isStringArr(wheres) ){
-        return addWhere(r,wheres);
+    if (isStringArr(wheres)) {
+        return addWhere(r, wheres);
     } else {
-        wheres.forEach( (a) => {
-            r = addWhere(r,a);
+        wheres.forEach((a) => {
+            r = addWhere(r, a);
         })
         return r;
     }
 }
 
-export async function checkTable( table:string,columns?:string[]){
-    let sch = _knex.schema;
-    let r = await sch.hasTable(table);
-    let e:string[] = []
-    if( !r ){ e.push( `Table ${table} does not exist`) }
+export async function checkTable_PromiseAll(table: string, columns?: string[]) {
+    let r = await _knex.schema.hasTable(table);
+    let e: string[] = []
+    let done_c: string[] = []
+    if (!r) { e.push(`Table ${table} does not exist`) }
     else {
-        if( columns ){
-            columns.forEach( async c => {
-                r = await sch.hasColumn(table,c);
-                if( !r ){ e.push( `Column ${c} does not exist`) }
-            })
+        if (columns) {
+            await Promise.all(columns.map(async c => {
+                try {
+                    r = await _knex.schema.hasColumn(table, c);
+                    if (!r) {
+                        e.push(`Column ${c} does not exist`)
+                    }
+                    done_c.push(c)
+                } catch (e) {
+                    console.log("catch: ", e);
+                }
+            }))
         }
     }
-    return e.length>0 ? e : true
+    console.log("returning from checkTable")
+    return e.length > 0 ? e : true
+}
+
+export async function checkTable(table: string, columns?: string[]) {
+    let r = await _knex.schema.hasTable(table);
+    let e: string[] = []
+    if (!r) { e.push(`Table ${table} does not exist`) }
+    else {
+        if (columns) {
+            for (let ix = 0; ix < columns.length; ix++) {
+                let c = columns[ix];
+                try {
+                    r = await _knex.schema.hasColumn(table, c);
+                    if (!r) {
+                        e.push(`Column ${c} does not exist`)
+                    }
+                } catch (e) {
+                    console.log("catch: ", e);
+                }
+            }
+        }
+    }
+    console.log("returning from checkTable")
+    return e.length > 0 ? e : true
 }

@@ -10,8 +10,7 @@ connect( connection );
 
 console.log("outside async wrapper...")
 
-let r = await checkTable("verification", ["id","description","numbera"]);
-console.log( "r: ", r)
+let r = await checkTable("verification", ["id","description","number"]);
 if( Array.isArray(r) ){
   console.log( "checkTable: ", r )
   console.log("exiting...")
@@ -21,5 +20,5 @@ if( Array.isArray(r) ){
 //let vers = await getAll("verification", [["description","abc"],["id","3"]] );
 let vers = await getAll("verification", ["description","abc"] );
 console.log(vers);
-process.exit(0);
+//process.exit(0);
 
