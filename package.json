@@ -7,6 +7,7 @@
   "scripts": {
     "start": "npm run build:live",
     "build": "tsc -p .",
+    "run": "node lib/import.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
