@@ -13,6 +13,7 @@ export function connect(connection: Record<string, string>) {
 
 type WhereArgVal = string | number | boolean;
 type WhereArgs = [string, WhereArgVal] | [string, string, WhereArgVal];
+export type ColumnVal = WhereArgVal
 
 function isStringArr(s: any): s is WhereArgs {
     if (!Array.isArray(s)) return false;
@@ -92,3 +93,18 @@ export async function checkTable(table: string, columns?: string[]) {
     console.log("returning from checkTable")
     return e.length > 0 ? e : true
 }
+
+export async function upsert( table:string, values:Record<string,ColumnVal>, conflict_keys:string|string[]=[] ){
+    let r = _knex(table).insert(values)
+    if( conflict_keys.length>0 ){
+        // This is roundabout, but the way TS currently accepts it 
+        if( typeof conflict_keys=="string" ){
+            r = r.onConflict(conflict_keys).merge()
+        }
+        else {
+            r = r.onConflict(conflict_keys).merge()
+        }
+    }
+    return r
+}
+
