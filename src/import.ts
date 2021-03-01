@@ -1,24 +1,24 @@
-import {connect,getAll,checkTable} from "./acct-db.js"
+import { connect, getAll, checkTable } from "./acct-db.js"
+import { getConfig, init, setConfig } from "./acct-base.js"
 
 let connection = {
-  host : 'localhost',
-  user : 'directus',
-  password : 'psql1234',
-  database : 'dir_acct'
+  host: 'localhost',
+  user: 'directus',
+  password: 'psql1234',
+  database: 'dir_acct'
 }
-connect( connection );
+connect(connection);
 
-console.log("outside async wrapper...")
+if (! await init()) process.exit(1)
 
-let r = await checkTable("verification", ["id","description","number"]);
-if( Array.isArray(r) ){
-  console.log( "checkTable, failed: ", r )
-  process.exit(0);
-}
+let ps:Promise<any>[] = []
+
+console.log(getConfig("currency_code", "usd"))
+ps.push( setConfig("currency_code", "sek") )
+console.log(getConfig("currency_code", "usd"))
 
 //let vers = await getAll("verification", [["description","abc"],["id","3"]] );
 
-
-
-process.exit(0);
+await Promise.all(ps)
+process.exit(0)
 
