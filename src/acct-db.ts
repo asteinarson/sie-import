@@ -16,7 +16,7 @@ type WhereArgs = [string,WhereArgVal] | [string,string,WhereArgVal];
 
 function isStringArr(s: any): s is WhereArgs {
     if(!Array.isArray(s)) return false;
-    if( s.length==0 ) return true;
+    if( s.length==0 ) return false;
     if( typeof s[0]=="string" ) return true;
     return false;
 }
@@ -46,4 +46,20 @@ export async function getAll(table:string, wheres:WhereArgs | WhereArgs[] = []){
         })
         return r;
     }
+}
+
+export async function checkTable( table:string,columns?:string[]){
+    let sch = _knex.schema;
+    let r = await sch.hasTable(table);
+    let e:string[] = []
+    if( !r ){ e.push( `Table ${table} does not exist`) }
+    else {
+        if( columns ){
+            columns.forEach( async c => {
+                r = await sch.hasColumn(table,c);
+                if( !r ){ e.push( `Column ${c} does not exist`) }
+            })
+        }
+    }
+    return e.length>0 ? e : true
 }

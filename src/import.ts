@@ -1,4 +1,4 @@
-import {connect,getAll} from "./acct-db"
+import {connect,getAll,checkTable} from "./acct-db.js"
 
 let connection = {
   host : 'localhost',
@@ -8,10 +8,18 @@ let connection = {
 }
 connect( connection );
 
-(async () => {
-    console.log("in async wrapper...")
-    //let vers = await getAll("verification", [["description","abc"],["id","3"]] );
-    let vers = await getAll("verification", ["description","abc"] );
-    console.log(vers);
-    process.exit(0);
-})()
+console.log("outside async wrapper...")
+
+let r = await checkTable("verification", ["id","description","numbera"]);
+console.log( "r: ", r)
+if( Array.isArray(r) ){
+  console.log( "checkTable: ", r )
+  console.log("exiting...")
+  process.exit(0);
+}
+
+//let vers = await getAll("verification", [["description","abc"],["id","3"]] );
+let vers = await getAll("verification", ["description","abc"] );
+console.log(vers);
+process.exit(0);
+
