@@ -51,7 +51,6 @@ export async function getAll(table: string, wheres: WhereArgs | WhereArgs[] = []
 export async function checkTable_PromiseAll(table: string, columns?: string[]) {
     let r = await _knex.schema.hasTable(table);
     let e: string[] = []
-    let done_c: string[] = []
     if (!r) { e.push(`Table ${table} does not exist`) }
     else {
         if (columns) {
@@ -61,7 +60,6 @@ export async function checkTable_PromiseAll(table: string, columns?: string[]) {
                     if (!r) {
                         e.push(`Column ${c} does not exist`)
                     }
-                    done_c.push(c)
                 } catch (e) {
                     console.log("catch: ", e);
                 }
