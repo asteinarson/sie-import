@@ -22,5 +22,7 @@ export function getConfig(key: string, default_val: string): string {
 }
 
 export async function setConfig(key: string, value: string) {
+    // Optimistic approach
+    config[key] = value
     return upsert("config", { key, value })
 }
