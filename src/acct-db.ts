@@ -94,15 +94,19 @@ export async function getAll(table: string, wheres: WhereArgs | WhereArgs[] = []
     }
 }
 
-export async function loadById(table: string, id:number, id_field?:string ) {
-    return _knex(table).where( id_field?id_field:"id", id)
+export async function loadById(table: string, id: number, id_field?: string) {
+    return _knex(table).where(id_field ? id_field : "id", id)
 }
 
-export async function upsert( table:string, values:Record<string,ColumnVal>, conflict_keys:string|string[]=[] ){
+export async function dbDelete(table: string, id: number, id_field?: string) {
+    return _knex(table).where(id_field ? id_field : "id", id).del()
+}
+
+export async function upsert(table: string, values: Record<string, ColumnVal>, conflict_keys: string | string[] = []) {
     let r = _knex(table).insert(values)
-    if( conflict_keys.length>0 ){
+    if (conflict_keys.length > 0) {
         // This is roundabout, but the way TS currently accepts it 
-        if( typeof conflict_keys=="string" ){
+        if (typeof conflict_keys == "string") {
             r = r.onConflict(conflict_keys).merge()
         }
         else {
