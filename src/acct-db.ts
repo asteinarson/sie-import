@@ -110,11 +110,11 @@ export async function upsert(table: string,
     conflict_keys: string | string[] = [],
     returning: string | string[] = "id") {
     let r = _knex(table).insert(values)
-    // SQLite does not support returning... so we would need to 
-    // test here and do something different, if SQLite driver
-    // The case with LAST_INSERT_ID() is that it can be truested that 
-    // they are serial numbers increasing by one. I.e. in the multi line
-    // case, they can be derived from LAST_INSERT_ID(). See discussion here:
+    // SQLite does not support returning... so we would need to  test here and do 
+    // something different, if SQLite driver. The case with LAST_INSERT_ID() is 
+    // that it can be truested that they are serial numbers increasing by one. I.e. 
+    // in the multi line case, they can be derived from LAST_INSERT_ID(). See 
+    // discussion here:
     // https://stackoverflow.com/questions/39875480/how-can-i-return-inserted-ids-for-multiple-rows-in-sqlite
     if (returning.length) r = r.returning(returning)
     if (conflict_keys.length > 0) {
