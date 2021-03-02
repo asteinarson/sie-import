@@ -100,7 +100,7 @@ export async function loadById(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id)
 }
 
-export async function dbDelete(table: string, id: number, id_field?: string) {
+export async function deleteById(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id).del()
 }
 
