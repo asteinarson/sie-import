@@ -2,8 +2,10 @@
 // see comment by rijkvanzanten
 import Knex from 'knex'
 
+import { Dict } from './utils.js'
+
 let _knex: Knex;
-export function connect(connection: Record<string, string>) {
+export function connect(connection: Dict<string>) {
     let conn = {
         client: 'pg',
         connection
@@ -102,8 +104,12 @@ export async function dbDelete(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id).del()
 }
 
-export async function upsert(table: string, values: Record<string, ColumnVal>, conflict_keys: string | string[] = []) {
+export async function upsert(table: string,
+    values: Dict<ColumnVal> | Dict<ColumnVal>[],
+    conflict_keys: string | string[] = [],
+    returning: string | string[] = "id") {
     let r = _knex(table).insert(values)
+    if (returning.length) r = r.returning(returning)
     if (conflict_keys.length > 0) {
         // This is roundabout, but the way TS currently accepts it 
         if (typeof conflict_keys == "string") {
