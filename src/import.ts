@@ -1,4 +1,4 @@
-import { connect, getAll, checkTable, loadById, deleteById, upsert, ColumnVal } from "./acct-db.js"
+import { connect, getAll, checkTable, loadById, deleteById, upsert, ColumnVal, update } from "./acct-db.js"
 import { getConfig, init, setConfig } from "./acct-base.js"
 import { Dict } from "./utils.js"
 
@@ -8,7 +8,7 @@ let connection = {
   password: 'psql1234',
   database: 'dir_acct'
 }
-connect(connection);
+await connect(connection);
 
 if (! await init()) process.exit(1)
 let ps: Promise<any>[] = []
@@ -107,7 +107,7 @@ class VerParser extends BaseParser {
 
       // Check that the accounts of the ver rows exists
       for (let row of this.rows) {
-        let r = await AccountParser.checkAddAccount(Number(row.account), "<generated>");
+        let r = await AccountParser.checkAddAccount(row.account, "<generated>");
         if (!r.id) this.errors++;
       }
 
@@ -206,7 +206,7 @@ class AccountParser extends BaseParser {
   }
 
   static async checkAddAccount(
-    number: number,
+    number: string,
     description: string
   ): Promise<{ id: number; new: boolean }> {
     // Have it already?
@@ -216,10 +216,11 @@ class AccountParser extends BaseParser {
       if (!id) {
         if (!options.dry) {
           // Create it
-          let r: Dict<any> = await upsert("account", { number, description }, "number", "id")
+          let r: Dict<any> = await upsert("account", { number, description, status:"published" }, "number", "id")
+          AccountParser.accounts[number] = r.id
           return { id: r.id, new: true };
         }
-        else id = 10000 // dry - for now
+        else id = 1000000 // dry - for now
       }
       return { id, new: false };
     } catch (e) {
@@ -227,14 +228,23 @@ class AccountParser extends BaseParser {
       return { id: 0, new: false };
     }
   }
+
+  static async enableAccounts(used_accounts:Record<number,boolean>){
+    let q = update("account",{status:"published"})
+    q = q.whereIn("id",Object.keys(used_accounts))
+    let r = await q;
+  }
+  
   async openRow(cols: string[]) {
     try {
-      let number = Number(cols[1]);
+      let number = cols[1];
       let description = mergeSieComment(cols.slice(2));
       // If we don't have it, create?
       let r = await AccountParser.checkAddAccount(number, description);
       if (r.id) {
-        if (r.new) this.changed++;
+        if (r.new){
+          this.changed++;
+        }
         this.count++;
       } else this.errors++;
     } catch (e) {
@@ -244,6 +254,48 @@ class AccountParser extends BaseParser {
   }
   closeRow() { }
 }
+
+
+class VerRowParser extends BaseParser {
+  word = "#TRANS";
+  rows: any[] = [];
+  used_accounts: Record<number,boolean> = {};
+
+  constructor(public parent: VerParser, public options: Dict<any>) {
+      super(parent, options);
+  }
+
+  async prepare() {}
+
+  async openRow(cols: string[]) {
+      // Adjust for non decimal amounts
+      // TODO: Check settings if we keep fractions or not
+      // TODO: This is also a setting per country/currency.
+      let val = Number(cols[3]) + this.parent.dec_adjust;
+      let a = Math.round(val);
+      this.parent.dec_adjust = val - a;
+      let number = cols[1]
+      let r = await AccountParser.checkAddAccount(number, "<generated>");
+      if (!r.id) this.errors++;
+
+      let row = {
+          account_id: r.id,
+          debit: a > 0 ? a : 0,
+          credit: a < 0 ? -a : 0,
+      };
+      this.parent.rows.push(row);
+      if( r.new ) this.used_accounts[r.id] = true;
+      this.count++;
+  }
+  closeRow() {}
+
+  async done() {
+      // Enable all used accounts in import
+      if( Object.keys(this.used_accounts).length>0 )
+        await AccountParser.enableAccounts(this.used_accounts);
+  }
+}
+
 
 
 
