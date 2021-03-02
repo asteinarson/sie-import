@@ -83,7 +83,7 @@ function addWhere(r: Knex.QueryBuilder, a: WhereArgs) {
     }
 }
 
-export async function getAll(table: string, wheres: WhereArgs | WhereArgs[] = []) {
+export function getAll(table: string, wheres: WhereArgs | WhereArgs[] = []) {
     //return _knex(table).where( "description", "abc").where("id",2)
     let r = _knex(table);
 
@@ -97,15 +97,15 @@ export async function getAll(table: string, wheres: WhereArgs | WhereArgs[] = []
     }
 }
 
-export async function loadById(table: string, id: number, id_field?: string) {
+export function loadById(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id)
 }
 
-export async function deleteById(table: string, id: number, id_field?: string) {
+export function deleteById(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id).del()
 }
 
-export async function upsert(table: string,
+export function upsert(table: string,
     values: Dict<ColumnVal> | Dict<ColumnVal>[],
     conflict_keys: string | string[] = [],
     returning: string | string[] = "id") {
@@ -126,6 +126,13 @@ export async function upsert(table: string,
             r = r.onConflict(conflict_keys).merge()
         }
     }
+    return r
+}
+
+export function update(table: string,
+    values: Dict<ColumnVal>,
+    returning: string[] = []) {
+    let r = _knex(table).update(values,returning)
     return r
 }
 
