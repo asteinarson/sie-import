@@ -191,6 +191,94 @@ class VerParser extends BaseParser {
   }
 }
 
+class AccountParser extends BaseParser {
+  word = "#KONTO";
+  static accounts: Dict<number> = {};
+  static plan: number;
+  constructor(public parent: VerParser, public options: Dict<any>) {
+      super(parent, options);
+  }
+
+  async prepare() {
+      // Get all accounts for current org
+      let plan = await getValue("organization", this.options.org_id, "plan_id");
+      if (!plan) {
+          giveUp("Account lookup needs an account plan (for organization).");
+      }
+      AccountParser.plan = plan;
+      let variables = { offset: 0, limit: 1e6, plan };
+      let r = await aclient.query({ query: ACCOUNTS, variables });
+      for (let v of r.data.account) {
+          AccountParser.accounts[v.number] = v.id;
+      }
+  }
+
+  static async checkAddAccount(
+      number: number,
+      description: string,
+      force = false
+  ): Promise<{ id: number; new: boolean }> {
+      // Have it already?
+      let id = AccountParser.accounts[number];
+      if (id && !force) return { id, new: false };
+      try {
+          if (!id) {
+              // Create it
+              let r = await aclient.mutate({
+                  mutation: INSERT_ACCOUNT,
+                  variables: {
+                      number,
+                      description,
+                      plan: AccountParser.plan,
+                  },
+              });
+              if (r.data.insert_account.affected_rows != 1) {
+                  console.log("Failed generating required account: " + number);
+                  return { id: 0, new: false };
+              }
+              id = r.data.insert_account.returning[0].id;
+              AccountParser.accounts[number] = Number(id);
+              return { id, new: true };
+          } else {
+              // Modify the account
+              let r = await aclient.mutate({
+                  mutation: MODIFY_ACCOUNT,
+                  variables: {
+                      number,
+                      description,
+                      id,
+                  },
+              });
+              if (r.data.update_account.returning.length < 1) {
+                  console.log("Failed modifying account: " + number);
+                  return { id: 0, new: false };
+              }
+              return { id, new: true };
+          }
+      } catch (e) {
+          console.log("AccountParser.addAccount - " + e);
+          return { id: 0, new: false };
+      }
+  }
+  async openRow(cols: string[]) {
+      try {
+          let number = Number(cols[1]);
+          let description = mergeSieComment(cols.slice(2));
+          // If we don't have it, create?
+          let r = await AccountParser.checkAddAccount(number, description, this.options.exists_overwrite);
+          if (r.id) {
+              if (r.new) this.changed++;
+              this.count++;
+          } else this.errors++;
+      } catch (e) {
+          console.log("AccountParser.openRow - " + e);
+          this.errors++;
+      }
+  }
+  closeRow() {}
+}
+
+
 
 await Promise.all(ps)
 process.exit(0)
