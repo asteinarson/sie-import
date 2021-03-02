@@ -41,8 +41,9 @@ export async function checkTable(table: string, columns?: string[]) {
     if (!r) { e.push(`Table ${table} does not exist`) }
     else {
         if (columns) {
-            for (let ix = 0; ix < columns.length; ix++) {
-                let c = columns[ix];
+            //for (let ix = 0; ix < columns.length; ix++) {
+            //    let c = columns[ix];
+            for( let c of columns ){
                 try {
                     r = await _knex.schema.hasColumn(table, c);
                     if (!r) {
