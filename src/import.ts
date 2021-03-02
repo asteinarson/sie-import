@@ -58,7 +58,7 @@ class BaseParser implements RowParser {
   changed = 0;
   is_done = false;
 
-  constructor(public parent: RowParser, public options: Dict<any>) { }
+  constructor(public parent: RowParser) { }
 
   openRow(cols: string[]): void { }
   closeRow(): void { }
@@ -77,8 +77,8 @@ class VerParser extends BaseParser {
   dec_adjust: number = 0.0;
   new_vers: number[] = [];
 
-  constructor(public parent: RowParser, public options: Dict<any>) {
-    super(parent, options);
+  constructor(public parent: RowParser) {
+    super(parent);
   }
 
   async prepare() {
@@ -114,7 +114,7 @@ class VerParser extends BaseParser {
       // Check if verification exists
       if (has_ver) {
         // Delete if overwrite flag
-        if (!this.options.overwrite) {
+        if (!options.overwrite) {
           console.log("Skipping (verification exists): " + ver_nr);
           return;
         }
@@ -194,8 +194,8 @@ class VerParser extends BaseParser {
 class AccountParser extends BaseParser {
   word = "#KONTO";
   static accounts: Dict<number> = {};
-  constructor(public parent: VerParser, public options: Dict<any>) {
-    super(parent, options);
+  constructor(public parent: VerParser) {
+    super(parent);
   }
 
   async prepare() {
@@ -261,8 +261,8 @@ class VerRowParser extends BaseParser {
   rows: any[] = [];
   used_accounts: Record<number,boolean> = {};
 
-  constructor(public parent: VerParser, public options: Dict<any>) {
-      super(parent, options);
+  constructor(public parent: VerParser) {
+      super(parent);
   }
 
   async prepare() {}
