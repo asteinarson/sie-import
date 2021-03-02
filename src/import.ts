@@ -17,7 +17,7 @@ let ps: Promise<any>[] = []
 let options = {
   dry: true,
   overwrite: false,
-  serie: null as string|null, 
+  serie: null as string | null,
   parts: {} as Dict<any>,
   import_info: {} as Dict<any>,
   organization_info: {} as Dict<any>,
@@ -133,9 +133,9 @@ class VerParser extends BaseParser {
         date_created: this.v.date,
       }
       let new_v_id = -1
-      if( !options.dry ){
-        let new_ids = await upsert( "verification", values );
-        if (!new_ids || !new_ids.length ) {
+      if (!options.dry) {
+        let new_ids = await upsert("verification", values);
+        if (!new_ids || !new_ids.length) {
           console.log("Failed creating new verification: " + ver_nr);
           this.errors++;
           return;
@@ -147,7 +147,7 @@ class VerParser extends BaseParser {
       // Do the rows
 
       // Create new ones
-      let rows:Dict<ColumnVal>[] = []
+      let rows: Dict<ColumnVal>[] = []
       for (let ix in this.rows) {
         let row = this.rows[ix];
         let v_row = {
@@ -159,10 +159,10 @@ class VerParser extends BaseParser {
         };
         rows.push(v_row);
       }
-      if( !options.dry ){
-        let r = await upsert( "verification_row", rows )
-        if( !r || r.length!=rows.length ){
-          console.log( "Failed creating verification rows: ", r )
+      if (!options.dry) {
+        let r = await upsert("verification_row", rows)
+        if (!r || r.length != rows.length) {
+          console.log("Failed creating verification rows: ", r)
           this.errors++
         }
       }
@@ -194,88 +194,55 @@ class VerParser extends BaseParser {
 class AccountParser extends BaseParser {
   word = "#KONTO";
   static accounts: Dict<number> = {};
-  static plan: number;
   constructor(public parent: VerParser, public options: Dict<any>) {
-      super(parent, options);
+    super(parent, options);
   }
 
   async prepare() {
-      // Get all accounts for current org
-      let plan = await getValue("organization", this.options.org_id, "plan_id");
-      if (!plan) {
-          giveUp("Account lookup needs an account plan (for organization).");
-      }
-      AccountParser.plan = plan;
-      let variables = { offset: 0, limit: 1e6, plan };
-      let r = await aclient.query({ query: ACCOUNTS, variables });
-      for (let v of r.data.account) {
-          AccountParser.accounts[v.number] = v.id;
-      }
+    let r = await getAll("account")
+    for (let v of r) {
+      AccountParser.accounts[r.number] = r.id;
+    }
   }
 
   static async checkAddAccount(
-      number: number,
-      description: string,
-      force = false
+    number: number,
+    description: string
   ): Promise<{ id: number; new: boolean }> {
-      // Have it already?
-      let id = AccountParser.accounts[number];
-      if (id && !force) return { id, new: false };
-      try {
-          if (!id) {
-              // Create it
-              let r = await aclient.mutate({
-                  mutation: INSERT_ACCOUNT,
-                  variables: {
-                      number,
-                      description,
-                      plan: AccountParser.plan,
-                  },
-              });
-              if (r.data.insert_account.affected_rows != 1) {
-                  console.log("Failed generating required account: " + number);
-                  return { id: 0, new: false };
-              }
-              id = r.data.insert_account.returning[0].id;
-              AccountParser.accounts[number] = Number(id);
-              return { id, new: true };
-          } else {
-              // Modify the account
-              let r = await aclient.mutate({
-                  mutation: MODIFY_ACCOUNT,
-                  variables: {
-                      number,
-                      description,
-                      id,
-                  },
-              });
-              if (r.data.update_account.returning.length < 1) {
-                  console.log("Failed modifying account: " + number);
-                  return { id: 0, new: false };
-              }
-              return { id, new: true };
-          }
-      } catch (e) {
-          console.log("AccountParser.addAccount - " + e);
-          return { id: 0, new: false };
+    // Have it already?
+    let id = AccountParser.accounts[number];
+    if (id && !options.overwrite) return { id, new: false };
+    try {
+      if (!id) {
+        if (!options.dry) {
+          // Create it
+          let r: Dict<any> = await upsert("account", { number, description }, "number", "id")
+          return { id: r.id, new: true };
+        }
+        else id = 10000 // dry - for now
       }
+      return { id, new: false };
+    } catch (e) {
+      console.log("AccountParser.addAccount - " + e);
+      return { id: 0, new: false };
+    }
   }
   async openRow(cols: string[]) {
-      try {
-          let number = Number(cols[1]);
-          let description = mergeSieComment(cols.slice(2));
-          // If we don't have it, create?
-          let r = await AccountParser.checkAddAccount(number, description, this.options.exists_overwrite);
-          if (r.id) {
-              if (r.new) this.changed++;
-              this.count++;
-          } else this.errors++;
-      } catch (e) {
-          console.log("AccountParser.openRow - " + e);
-          this.errors++;
-      }
+    try {
+      let number = Number(cols[1]);
+      let description = mergeSieComment(cols.slice(2));
+      // If we don't have it, create?
+      let r = await AccountParser.checkAddAccount(number, description);
+      if (r.id) {
+        if (r.new) this.changed++;
+        this.count++;
+      } else this.errors++;
+    } catch (e) {
+      console.log("AccountParser.openRow - " + e);
+      this.errors++;
+    }
   }
-  closeRow() {}
+  closeRow() { }
 }
 
 
