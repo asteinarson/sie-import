@@ -1,4 +1,5 @@
 import { getAll, checkTable, upsert } from "./acct-db.js"
+import { Dict } from "./utils.js"
 
 let config: Record<string, string> = {}
 
@@ -26,8 +27,10 @@ export function getConfig(key: string, default_val: string): string {
     return default_val
 }
 
-export async function setConfig(key: string, value: string) {
+export async function setConfig(key: string, value: string, comment?:string ) {
     // Optimistic approach
     config[key] = value
-    return upsert("config", { key, value }, "key")
+    let vals:Dict<string> = { key, value }
+    if( comment ) vals.comment = comment
+    return upsert("config", vals, "key")
 }
