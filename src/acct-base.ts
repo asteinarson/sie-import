@@ -3,14 +3,6 @@ import { Dict } from "./utils.js"
 
 let config: Record<string, string> = {}
 
-async function readConfig() {
-    let r = await getAll("config");
-    config = {}
-    r.forEach((c: any) => {
-        config[c.key] = c.value
-    });
-}
-
 export async function init() {
     let r = await checkTable("verification", ["id","description","number"]);
     if( Array.isArray(r) ){
@@ -20,6 +12,14 @@ export async function init() {
     await readConfig()
     return true
 }
+
+async function readConfig() {
+    let r = await getAll("config");
+    config = {}
+    r.forEach((c: any) => {
+        config[c.key] = c.value
+    });    
+}    
 
 export function getConfig(key: string, default_val: string): string {
     let v = config[key]
