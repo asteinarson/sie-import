@@ -101,7 +101,7 @@ export function loadById(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id)
 }
 
-export function deleteById(table: string, id: number, id_field?: string) {
+export function deleteById(table: string, id: number|string, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id).del()
 }
 

@@ -93,23 +93,20 @@ class VerParser extends BaseParser {
       // Prepare commit verification to DB
       // ! We should check if we have a serie in options we should use instead! 
       let ver_nr = this.v.serie + this.v.n;
-      let has_ver = await getAll("verification", ["number", ver_nr]);
-
-      // Check that the accounts of the ver rows exists
-      for (let row of this.rows) {
-        let r = await AccountParser.checkAddAccount(row.account, "<generated>");
-        if (!r.id) this.errors++;
-      }
+      let old_ver_id = await getAll("verification", ["number", ver_nr]);
 
       // Check if verification exists
-      if (has_ver) {
+      if (old_ver_id.length > 0) {
         // Delete if overwrite flag
         if (!options.overwrite) {
           console.log("Skipping (verification exists): " + ver_nr);
           return;
         }
-        if (has_ver && !options.dry) {
-          await deleteById("verification", ver_nr, "number")
+        if (!options.dry) {
+          await Promise.all(
+            [deleteById("verification", ver_nr, "number"),
+            deleteById("verification_row", old_ver_id[0].id, "verification_id" )
+            ])
         }
 
       }
@@ -137,21 +134,13 @@ class VerParser extends BaseParser {
       // Do the rows
 
       // Create new ones
-      let rows: Dict<ColumnVal>[] = []
-      for (let ix in this.rows) {
-        let row = this.rows[ix];
-        let v_row = {
-          line: ix,
-          credit: row.credit,
-          debit: row.debit,
-          verification_id: new_v_id,
-          account_id: AccountParser.accounts[row.account],
-        };
-        rows.push(v_row);
+      for (let row of this.rows) {
+        row.verification_id = new_v_id
+        // row.line = ... - use <id> instead
       }
       if (!options.dry) {
-        let r = await upsert("verification_row", rows)
-        if (!r || r.length != rows.length) {
+        let r = await upsert("verification_row", this.rows)
+        if (!r || r.length != this.rows.length) {
           console.log("Failed creating verification rows: ", r)
           this.errors++
         }
@@ -191,7 +180,7 @@ class AccountParser extends BaseParser {
   async prepare() {
     let r = await getAll("account")
     for (let v of r) {
-      AccountParser.accounts[r.number] = r.id;
+      AccountParser.accounts[v.number] = v.id;
     }
   }
 
@@ -207,8 +196,9 @@ class AccountParser extends BaseParser {
         if (!options.dry) {
           // Create it
           let r: Dict<any> = await upsert("account", { number, description, status: "published" }, "number", "id")
-          AccountParser.accounts[number] = r.id
-          return { id: r.id, new: true };
+          let new_id = r[0]
+          AccountParser.accounts[number] = new_id
+          return { id: new_id, new: true };
         }
         else id = 1000000 // dry - for now
       }
@@ -376,7 +366,8 @@ class AccountingInfoParser extends BaseParser {
 // Begin of import processing  
 // 
 
-const fs = require("fs");
+//const fs = require("fs");
+import fs from "fs"
 import { promisify } from "util";
 
 import * as readline from "readline";
@@ -384,7 +375,7 @@ let existsSync = promisify(fs.exists);
 
 // Options controlling the import
 let options = {
-  dry: true,
+  dry: false,
   overwrite: false,
   serie: null as string | null,
   parts: {} as Dict<any>,
@@ -401,6 +392,9 @@ for (ix = 2; ix < av.length - 1; ix++) {
   switch (opt) {
     case "-O":
       options.overwrite = true;
+      break;
+    case "-D":
+      options.dry = true;
       break;
     //case "-R":
     // Remap verification numbers to this
