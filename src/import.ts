@@ -296,6 +296,92 @@ class VerRowParser extends BaseParser {
   }
 }
 
+class ImportInfoParser extends BaseParser {
+  word = "#IMPORT_INFO";
+  words = ["#SIETYP", "#GEN"];
+  public info: Dict<any> = {};
+
+  constructor(public parent: RowParser) {
+      super(parent);
+  }
+
+  openRow(cols: string[]) {
+      if (cols.length > 1) {
+          this.changed = -1;
+          switch (cols[0]) {
+              case "#SIETYP":
+                  this.info.SIETYP = cols[1];
+                  this.count++;
+                  break;
+              case "#GEN":
+                  this.info.generated_at = cols[1];
+                  this.info.generated_by = mergeSieComment(cols.slice(2));
+                  this.count++;
+                  break;
+          }
+      }
+  }
+}
+
+class OrganizationInfoParser extends BaseParser {
+  word = "#ORGANIZATION_INFO";
+  words = ["#ORGNR", "#FNAMN"];
+  public info: Dict<any> = {};
+
+  constructor(public parent: RowParser) {
+      super(parent);
+  }
+
+  openRow(cols: string[]) {
+      if (cols.length > 1) {
+          this.changed = -1;
+          switch (cols[0]) {
+              case "#ORGNR":
+                  this.info.organization_number = cols[1];
+                  this.info.country_name = "Sweden";
+                  this.count++;
+                  break;
+              case "#FNAMN":
+                  this.info.name = mergeSieComment(cols.slice(1));
+                  this.count++;
+                  break;
+          }
+      }
+  }
+}
+
+class AccountingInfoParser extends BaseParser {
+  word = "#ACCOUNTING_INFO";
+  words = ["#RAR", "#KPTYP", "#VALUTA"];
+  public info: Dict<any> = {};
+
+  constructor(public parent: RowParser) {
+      super(parent);
+  }
+
+  openRow(cols: string[]) {
+      if (cols.length > 1) {
+          this.changed = -1;
+          switch (cols[0]) {
+              case "#RAR":
+                  this.info.year_count = cols[1];
+                  this.info.year_begin = cols[2];
+                  this.info.year_end = cols[3];
+                  this.count++;
+                  break;
+              case "#KPTYP":
+                  this.info.account_plan = cols[1];
+                  this.count++;
+                  break;
+              case "#VALUTA":
+                  this.info.currency = cols[1];
+                  this.count++;
+                  break;
+          }
+      }
+  }
+}
+
 
 
 
