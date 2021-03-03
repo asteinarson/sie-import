@@ -1,6 +1,14 @@
+
+let start_time = process.hrtime();
+
 import { connect, getAll, checkTable, loadById, deleteById, upsert, ColumnVal, update } from "./acct-db.js"
 import { getConfig, init, setConfig } from "./acct-base.js"
-import { Dict } from "./utils.js"
+import { Dict, isEmpty, isEmptyObject } from "./utils.js"
+
+function giveUp(msg: string, ec: number = -1) {
+  console.log(msg);
+  process.exit(ec);
+}
 
 let connection = {
   host: 'localhost',
@@ -9,26 +17,7 @@ let connection = {
   database: 'dir_acct'
 }
 await connect(connection);
-
-if (! await init()) process.exit(1)
-let ps: Promise<any>[] = []
-
-// Options controlling the import
-let options = {
-  dry: true,
-  overwrite: false,
-  serie: null as string | null,
-  parts: {} as Dict<any>,
-  import_info: {} as Dict<any>,
-  organization_info: {} as Dict<any>,
-  accounting_info: {} as Dict<any>,
-};
-
-
-function giveUp(msg: string, ec: number = -1) {
-  console.log(msg);
-  process.exit(ec);
-}
+if (! await init()) giveUp("Failed init")
 
 function mergeSieComment(cols: string[]) {
   let comment = cols.join(" ");
@@ -40,7 +29,7 @@ interface RowParser {
   word: string;
   words?: string[];
   info?: Dict<string>;
-  parent: RowParser;
+  parent?: RowParser;
   count: number;
   errors: number;
   changed: number;
@@ -53,17 +42,18 @@ interface RowParser {
 
 class BaseParser implements RowParser {
   word = "";
+  words: string[] = null;
   count = 0;
   errors = 0;
   changed = 0;
   is_done = false;
 
-  constructor(public parent: RowParser) { }
+  constructor(public parent?: RowParser) { }
 
   openRow(cols: string[]): void { }
   closeRow(): void { }
-  prepare(): void { }
-  done(): void {
+  async prepare(): Promise<void> { }
+  async done() {
     this.is_done = true;
   }
 }
@@ -77,7 +67,7 @@ class VerParser extends BaseParser {
   dec_adjust: number = 0.0;
   new_vers: number[] = [];
 
-  constructor(public parent: RowParser) {
+  constructor(public parent?: RowParser) {
     super(parent);
   }
 
@@ -194,7 +184,7 @@ class VerParser extends BaseParser {
 class AccountParser extends BaseParser {
   word = "#KONTO";
   static accounts: Dict<number> = {};
-  constructor(public parent: VerParser) {
+  constructor(public parent?: VerParser) {
     super(parent);
   }
 
@@ -216,7 +206,7 @@ class AccountParser extends BaseParser {
       if (!id) {
         if (!options.dry) {
           // Create it
-          let r: Dict<any> = await upsert("account", { number, description, status:"published" }, "number", "id")
+          let r: Dict<any> = await upsert("account", { number, description, status: "published" }, "number", "id")
           AccountParser.accounts[number] = r.id
           return { id: r.id, new: true };
         }
@@ -229,12 +219,12 @@ class AccountParser extends BaseParser {
     }
   }
 
-  static async enableAccounts(used_accounts:Record<number,boolean>){
-    let q = update("account",{status:"published"})
-    q = q.whereIn("id",Object.keys(used_accounts))
+  static async enableAccounts(used_accounts: Record<number, boolean>) {
+    let q = update("account", { status: "published" })
+    q = q.whereIn("id", Object.keys(used_accounts))
     let r = await q;
   }
-  
+
   async openRow(cols: string[]) {
     try {
       let number = cols[1];
@@ -242,7 +232,7 @@ class AccountParser extends BaseParser {
       // If we don't have it, create?
       let r = await AccountParser.checkAddAccount(number, description);
       if (r.id) {
-        if (r.new){
+        if (r.new) {
           this.changed++;
         }
         this.count++;
@@ -259,40 +249,40 @@ class AccountParser extends BaseParser {
 class VerRowParser extends BaseParser {
   word = "#TRANS";
   rows: any[] = [];
-  used_accounts: Record<number,boolean> = {};
+  used_accounts: Record<number, boolean> = {};
 
   constructor(public parent: VerParser) {
-      super(parent);
+    super(parent);
   }
 
-  async prepare() {}
+  async prepare() { }
 
   async openRow(cols: string[]) {
-      // Adjust for non decimal amounts
-      // TODO: Check settings if we keep fractions or not
-      // TODO: This is also a setting per country/currency.
-      let val = Number(cols[3]) + this.parent.dec_adjust;
-      let a = Math.round(val);
-      this.parent.dec_adjust = val - a;
-      let number = cols[1]
-      let r = await AccountParser.checkAddAccount(number, "<generated>");
-      if (!r.id) this.errors++;
+    // Adjust for non decimal amounts
+    // TODO: Check settings if we keep fractions or not
+    // TODO: This is also a setting per country/currency.
+    let val = Number(cols[3]) + this.parent.dec_adjust;
+    let a = Math.round(val);
+    this.parent.dec_adjust = val - a;
+    let number = cols[1]
+    let r = await AccountParser.checkAddAccount(number, "<generated>");
+    if (!r.id) this.errors++;
 
-      let row = {
-          account_id: r.id,
-          debit: a > 0 ? a : 0,
-          credit: a < 0 ? -a : 0,
-      };
-      this.parent.rows.push(row);
-      if( r.new ) this.used_accounts[r.id] = true;
-      this.count++;
+    let row = {
+      account_id: r.id,
+      debit: a > 0 ? a : 0,
+      credit: a < 0 ? -a : 0,
+    };
+    this.parent.rows.push(row);
+    if (r.new) this.used_accounts[r.id] = true;
+    this.count++;
   }
-  closeRow() {}
+  closeRow() { }
 
   async done() {
-      // Enable all used accounts in import
-      if( Object.keys(this.used_accounts).length>0 )
-        await AccountParser.enableAccounts(this.used_accounts);
+    // Enable all used accounts in import
+    if (Object.keys(this.used_accounts).length > 0)
+      await AccountParser.enableAccounts(this.used_accounts);
   }
 }
 
@@ -301,25 +291,25 @@ class ImportInfoParser extends BaseParser {
   words = ["#SIETYP", "#GEN"];
   public info: Dict<any> = {};
 
-  constructor(public parent: RowParser) {
-      super(parent);
+  constructor(public parent?: RowParser) {
+    super(parent);
   }
 
   openRow(cols: string[]) {
-      if (cols.length > 1) {
-          this.changed = -1;
-          switch (cols[0]) {
-              case "#SIETYP":
-                  this.info.SIETYP = cols[1];
-                  this.count++;
-                  break;
-              case "#GEN":
-                  this.info.generated_at = cols[1];
-                  this.info.generated_by = mergeSieComment(cols.slice(2));
-                  this.count++;
-                  break;
-          }
+    if (cols.length > 1) {
+      this.changed = -1;
+      switch (cols[0]) {
+        case "#SIETYP":
+          this.info.SIETYP = cols[1];
+          this.count++;
+          break;
+        case "#GEN":
+          this.info.generated_at = cols[1];
+          this.info.generated_by = mergeSieComment(cols.slice(2));
+          this.count++;
+          break;
       }
+    }
   }
 }
 
@@ -328,25 +318,25 @@ class OrganizationInfoParser extends BaseParser {
   words = ["#ORGNR", "#FNAMN"];
   public info: Dict<any> = {};
 
-  constructor(public parent: RowParser) {
-      super(parent);
+  constructor(public parent?: RowParser) {
+    super(parent);
   }
 
   openRow(cols: string[]) {
-      if (cols.length > 1) {
-          this.changed = -1;
-          switch (cols[0]) {
-              case "#ORGNR":
-                  this.info.organization_number = cols[1];
-                  this.info.country_name = "Sweden";
-                  this.count++;
-                  break;
-              case "#FNAMN":
-                  this.info.name = mergeSieComment(cols.slice(1));
-                  this.count++;
-                  break;
-          }
+    if (cols.length > 1) {
+      this.changed = -1;
+      switch (cols[0]) {
+        case "#ORGNR":
+          this.info.organization_number = cols[1];
+          this.info.country_name = "Sweden";
+          this.count++;
+          break;
+        case "#FNAMN":
+          this.info.name = mergeSieComment(cols.slice(1));
+          this.count++;
+          break;
       }
+    }
   }
 }
 
@@ -355,36 +345,188 @@ class AccountingInfoParser extends BaseParser {
   words = ["#RAR", "#KPTYP", "#VALUTA"];
   public info: Dict<any> = {};
 
-  constructor(public parent: RowParser) {
-      super(parent);
+  constructor(public parent?: RowParser) {
+    super(parent);
   }
 
   openRow(cols: string[]) {
-      if (cols.length > 1) {
-          this.changed = -1;
-          switch (cols[0]) {
-              case "#RAR":
-                  this.info.year_count = cols[1];
-                  this.info.year_begin = cols[2];
-                  this.info.year_end = cols[3];
-                  this.count++;
-                  break;
-              case "#KPTYP":
-                  this.info.account_plan = cols[1];
-                  this.count++;
-                  break;
-              case "#VALUTA":
-                  this.info.currency = cols[1];
-                  this.count++;
-                  break;
-          }
+    if (cols.length > 1) {
+      this.changed = -1;
+      switch (cols[0]) {
+        case "#RAR":
+          this.info.year_count = cols[1];
+          this.info.year_begin = cols[2];
+          this.info.year_end = cols[3];
+          this.count++;
+          break;
+        case "#KPTYP":
+          this.info.account_plan = cols[1];
+          this.count++;
+          break;
+        case "#VALUTA":
+          this.info.currency = cols[1];
+          this.count++;
+          break;
       }
+    }
   }
 }
 
+//
+// Begin of import processing  
+// 
+
+const fs = require("fs");
+import { promisify } from "util";
+
+import * as readline from "readline";
+let existsSync = promisify(fs.exists);
+
+// Options controlling the import
+let options = {
+  dry: true,
+  overwrite: false,
+  serie: null as string | null,
+  parts: {} as Dict<any>,
+  import_info: {} as Dict<any>,
+  organization_info: {} as Dict<any>,
+  accounting_info: {} as Dict<any>,
+};
 
 
+let av = process.argv;
+let ix;
+for (ix = 2; ix < av.length - 1; ix++) {
+  let opt: string = av[ix];
+  switch (opt) {
+    case "-O":
+      options.overwrite = true;
+      break;
+    //case "-R":
+    // Remap verification numbers to this
+    //    options.remap_ver_nr = av[++ix];
 
-await Promise.all(ps)
+    case "-p":
+      for (let p of av[++ix].split(",")) {
+        if (p[0] !== "#") p = "#" + p;
+        p = p.toUpperCase();
+        options.parts[p] = true;
+        if (p == "#VER") {
+          // We could find a better way enabling "child parsers" from
+          // "parent parsers".
+          options.parts["#TRANS"] = true;
+        }
+      }
+      break;
+  }
+}
+let file = av[ix];
+
+async function runImports() {
+  let to_dos: Promise<any>[] = []
+
+  // Check args
+  if (!(await existsSync(file))) giveUp("File does not exist: " + file);
+
+  // Register parsers
+  let parsers: Dict<BaseParser> = {};
+  let vp = new VerParser();
+  let p_arr: BaseParser[] = [
+    vp,
+    new VerRowParser(vp),
+    new AccountParser(),
+    new ImportInfoParser(),
+    new OrganizationInfoParser(),
+    new AccountingInfoParser(),
+  ];
+  let prepares: Promise<any>[] = []
+  for (let p of p_arr) {
+    parsers[p.word] = p;
+    if (p.words) {
+      // Parsers that accept multiple leading words
+      for (let w of p.words) {
+        parsers[w] = p;
+      }
+    }
+    prepares.push(p.prepare());
+  }
+  await Promise.all(prepares);
+
+  let parser: RowParser = null;
+  let parents: RowParser[] = [];
+  let skipped: Dict<boolean> = {};
+
+  let re_open = new RegExp("^\\{\\s*$");
+  let re_close = new RegExp("^\\}\\s*$");
+
+  const rl = readline.createInterface({
+    input: fs.createReadStream(file),
+    crlfDelay: Infinity,
+  });
+
+  let do_all = isEmptyObject(options.parts);
+
+  for await (const line of rl) {
+    let word = line.slice(0, line.indexOf(" "));
+    let cols = line.split(" ");
+    if (re_open.test(line)) {
+      parents.push(parser);
+    } else if (re_close.test(line)) {
+      let p = parents.pop();
+      if (p) await p.closeRow();
+    } else {
+      let p_name = parsers[word] ? parsers[word].word : "";
+      parser = do_all || options.parts[p_name] ? parsers[word] : undefined;
+      if (parser) {
+        await parser.openRow(cols);
+      } else {
+        if (word && !skipped[word]) {
+          console.log("Skipping:" + word + ":");
+          skipped[word] = true;
+        }
+      }
+    }
+  }
+
+  console.log("Import summary:");
+  for (let p of Object.values(parsers)) {
+    if (!p.is_done) {
+      to_dos.push(p.done())
+      if (do_all || options.parts[p.word]) {
+        let change_cnt = p.changed >= 0 ? p.changed : "<unknown>";
+        console.log(`${p.word} - ${p.count} processed - ${change_cnt} changed - ${p.errors} issues`);
+      }
+    }
+  }
+
+  // See if we have collected organization and import data
+  parser = parsers["#IMPORT_INFO"]
+  if (!isEmpty(parser.info)) {
+    // We could make an import table and keep these
+    //await setImportValues(parsers["#IMPORT_INFO"].info, options.exists_overwrite);
+  }
+  parser = parsers["#ORGANIZATION_INFO"]
+  if (!isEmpty(parser.info)) {
+    let org_nr = parser.info.organization_number
+    if (org_nr) to_dos.push(setConfig("organization_number", org_nr))
+    let comp_name = parser.info.name
+    if (comp_name) to_dos.push(setConfig("company_name", org_nr))
+  }
+
+  parser = parsers["#ACCOUNTING_INFO"]
+  if (!isEmpty(parser.info)) {
+    // This info would need to go on the import ? 
+    let cc = parser.info.currency
+    if (cc) to_dos.push(setConfig("currency_code", cc.toUpperCase()))
+  }
+  return Promise.all(to_dos)
+}
+
+// Run it
+await runImports()
+
+let dur = process.hrtime(start_time);
+console.log(`Duration: ${(dur[0] + dur[1] / 1000000000.0).toFixed(3)} seconds`);
+
 process.exit(0)
 
