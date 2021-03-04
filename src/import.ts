@@ -1,7 +1,7 @@
 
 let start_time = process.hrtime();
 
-import { connect, getAll, checkTable, loadById, deleteById, upsert, ColumnVal, update } from "./acct-db.js"
+import { connect, getAll, checkTable, loadById, deleteById, upsert, ColumnVal, update } from "./entity-db.js"
 import { getConfig, init, setConfig } from "./acct-base.js"
 import { Dict, isEmpty, isEmptyObject } from "./utils.js"
 

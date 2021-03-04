@@ -1,4 +1,4 @@
-import { getAll, checkTable, upsert } from "./acct-db.js"
+import { getAll, checkTable, upsert } from "./entity-db.js"
 import { Dict } from "./utils.js"
 
 let config: Record<string, string> = {}
