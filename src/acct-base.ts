@@ -5,7 +5,7 @@ let config: Record<string, string> = {}
 
 export async function init() {
     let db_cols: Dict<string[]> = {
-        verification: ["ida", "description", "number", "date"],
+        verification: ["id", "description", "number", "date"],
         verification_row: ["credit", "debet", "verification_id", "account_id"],
         account: ["number", "description", "type", "year"],
         config: ["key", "value"],

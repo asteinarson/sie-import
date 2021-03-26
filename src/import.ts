@@ -420,7 +420,6 @@ if (!(await existsSync(file))) giveUp("File does not exist: " + file);
 
 
 async function runImports() {
-  giveUp("ri");
   let to_dos: Promise<any>[] = []
 
   // Register parsers
