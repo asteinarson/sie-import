@@ -417,6 +417,16 @@ for (ix = 2; ix < av.length - 1; ix++) {
 let file = av[ix];
 
 async function runImports() {
+  // Check the DB is what we rely on 
+  let e = await checkTable("verification",["id","description","number","date"]);
+  if( typeof e == "string" ) giveUp(e);
+  e = await checkTable("verification_row",["credit","debet","verification_id","account_id"]);
+  if( typeof e == "string" ) giveUp(e);
+  e = await checkTable("account",["number","description","type","year"]);
+  if( typeof e == "string" ) giveUp(e);
+  e = await checkTable("config",["key","value"]);
+  if( typeof e == "string" ) giveUp(e);
+
   let to_dos: Promise<any>[] = []
 
   // Check args
