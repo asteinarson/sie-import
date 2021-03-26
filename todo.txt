@@ -1,0 +1,6 @@
+
+Import:
+  Move DB actions on verifications, accounts,... into acct-base.ts (reusability, separation)
+  Move parsers into its own file (sie-parse.ts)
+  Handle series
+  
