@@ -15,22 +15,21 @@ export function connect(connection: Dict<string>) {
 
 export async function checkTable(table: string, columns?: string[]) {
     let r = await _knex.schema.hasTable(table);
-    let e: string[] = []
+    let e: string[] = [];
     if (!r) { e.push(`Table ${table} does not exist`) }
     else if (columns) {
         for (let c of columns) {
             try {
                 r = await _knex.schema.hasColumn(table, c);
                 if (!r) {
-                    e.push(`Column ${c} does not exist`)
+                    e.push(`Table ${table} - column ${c} does not exist`)
                 }
             } catch (e) {
                 console.log("catch: ", e);
             }
         }
     }
-    console.log("returning from checkTable")
-    return e.length > 0 ? e : true
+    if (e.length > 0) return e;
 }
 
 type WhereArgVal = string | number | boolean;
