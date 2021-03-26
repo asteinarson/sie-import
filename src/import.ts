@@ -117,7 +117,7 @@ class VerParser extends BaseParser {
       let values = {
         number: ver_nr,
         description: this.v.comment,
-        date_created: this.v.date,
+        date: this.v.date,
       }
       let new_v_id = -1
       if (!options.dry) {
@@ -414,23 +414,14 @@ for (ix = 2; ix < av.length - 1; ix++) {
       break;
   }
 }
+// Check args
 let file = av[ix];
+if (!(await existsSync(file))) giveUp("File does not exist: " + file);
+
 
 async function runImports() {
-  // Check the DB is what we rely on 
-  let e = await checkTable("verification",["id","description","number","date"]);
-  if( typeof e == "string" ) giveUp(e);
-  e = await checkTable("verification_row",["credit","debet","verification_id","account_id"]);
-  if( typeof e == "string" ) giveUp(e);
-  e = await checkTable("account",["number","description","type","year"]);
-  if( typeof e == "string" ) giveUp(e);
-  e = await checkTable("config",["key","value"]);
-  if( typeof e == "string" ) giveUp(e);
-
+  giveUp("ri");
   let to_dos: Promise<any>[] = []
-
-  // Check args
-  if (!(await existsSync(file))) giveUp("File does not exist: " + file);
 
   // Register parsers
   let parsers: Dict<BaseParser> = {};
