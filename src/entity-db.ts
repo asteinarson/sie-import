@@ -13,45 +13,19 @@ export function connect(connection: Dict<string>) {
     _knex = Knex(conn as Knex.Config);
 }
 
-export async function checkTable_PromiseAll(table: string, columns?: string[]) {
-    let r = await _knex.schema.hasTable(table);
-    let e: string[] = []
-    if (!r) { e.push(`Table ${table} does not exist`) }
-    else {
-        if (columns) {
-            await Promise.all(columns.map(async c => {
-                try {
-                    r = await _knex.schema.hasColumn(table, c);
-                    if (!r) {
-                        e.push(`Column ${c} does not exist`)
-                    }
-                } catch (e) {
-                    console.log("catch: ", e);
-                }
-            }))
-        }
-    }
-    console.log("returning from checkTable")
-    return e.length > 0 ? e : true
-}
-
 export async function checkTable(table: string, columns?: string[]) {
     let r = await _knex.schema.hasTable(table);
     let e: string[] = []
     if (!r) { e.push(`Table ${table} does not exist`) }
-    else {
-        if (columns) {
-            //for (let ix = 0; ix < columns.length; ix++) {
-            //    let c = columns[ix];
-            for( let c of columns ){
-                try {
-                    r = await _knex.schema.hasColumn(table, c);
-                    if (!r) {
-                        e.push(`Column ${c} does not exist`)
-                    }
-                } catch (e) {
-                    console.log("catch: ", e);
+    else if (columns) {
+        for (let c of columns) {
+            try {
+                r = await _knex.schema.hasColumn(table, c);
+                if (!r) {
+                    e.push(`Column ${c} does not exist`)
                 }
+            } catch (e) {
+                console.log("catch: ", e);
             }
         }
     }
@@ -101,7 +75,7 @@ export function loadById(table: string, id: number, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id)
 }
 
-export function deleteById(table: string, id: number|string, id_field?: string) {
+export function deleteById(table: string, id: number | string, id_field?: string) {
     return _knex(table).where(id_field ? id_field : "id", id).del()
 }
 
@@ -132,7 +106,7 @@ export function upsert(table: string,
 export function update(table: string,
     values: Dict<ColumnVal>,
     returning: string[] = []) {
-    let r = _knex(table).update(values,returning)
+    let r = _knex(table).update(values, returning)
     return r
 }
 

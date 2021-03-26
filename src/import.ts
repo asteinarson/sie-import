@@ -260,7 +260,7 @@ class VerRowParser extends BaseParser {
 
     let row = {
       account_id: r.id,
-      debit: a > 0 ? a : 0,
+      debet: a > 0 ? a : 0,
       credit: a < 0 ? -a : 0,
     };
     this.parent.rows.push(row);
@@ -504,7 +504,7 @@ async function runImports() {
     let org_nr = parser.info.organization_number
     if (org_nr) to_dos.push(setConfig("organization_number", org_nr))
     let comp_name = parser.info.name
-    if (comp_name) to_dos.push(setConfig("company_name", org_nr))
+    if (comp_name) to_dos.push(setConfig("company_name", comp_name))
   }
 
   parser = parsers["#ACCOUNTING_INFO"]
