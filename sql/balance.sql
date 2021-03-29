@@ -16,3 +16,15 @@ CREATE VIEW ver_view AS SELECT vr.debet, vr.credit, a.number, v.date
 
 --- Balance of one account, at a date    
 SELECT SUM(debet) - SUM(credit) FROM ver_view WHERE NUMBER='1930' AND DATE<'2015-09-01';
+
+--- Tillgångar at a date 
+SELECT SUM(debet) - SUM(credit) FROM ver_view WHERE NUMBER LIKE '1%%%' AND DATE<'2015-09-01';
+
+--- Skulder/EK at a date 
+SELECT SUM(credit) - SUM(debet) FROM ver_view WHERE NUMBER LIKE '2%%%' AND DATE<'2015-09-01';
+
+--- Try combine - resultat
+SELECT (SELECT (SUM(debet) - SUM(credit)) AS tillg  FROM ver_view WHERE NUMBER LIKE '1%%%' AND DATE<'2016-09-01')  
+- 
+(SELECT (SUM(credit) - SUM(debet)) AS skuld FROM ver_view WHERE NUMBER LIKE '2%%%' AND DATE<'2016-09-01') AS resultat;
+
